@@ -398,7 +398,6 @@ export default function LaudoOftalmologico() {
       } else {
         L(pick([`Teste de Schirmer evidenciando redução da produção lacrimal, com medida de ${sOD} mm no olho direito e ${sOE} mm no olho esquerdo.`, `Redução da produção lacrimal ao teste de Schirmer: ${sOD} mm (OD) e ${sOE} mm (OE).`]));
       }
-      L("");
       L("Teste da Lisamina Verde:");
       L(`Olho Direito: ${lisaminaText(lacOD.lisamina)}`);
       L(`Olho Esquerdo: ${lisaminaText(lacOE.lisamina)}`);
