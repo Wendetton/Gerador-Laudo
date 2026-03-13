@@ -367,7 +367,6 @@ export default function LaudoOftalmologico() {
       if (lines.length) B();
       T("TOPOGRAFIA DE CÓRNEA");
       L(`Técnica: ${TOPO_TECNICA()}`);
-      L("");
       L(`Olho Direito: ${topoText(topoOD)}`);
       L(`Olho Esquerdo: ${topoText(topoOE)}`);
     }
