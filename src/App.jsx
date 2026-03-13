@@ -89,36 +89,12 @@ const TOPO_TECNICA = () => pick([
 ]);
 function topoText(id) {
   switch (id) {
-    case "normal": return pick([
-      "Exame topográfico evidenciando córnea com padrão regular, apresentando distribuição simétrica do poder dióptrico. Curvaturas corneanas anteriores centrais dentro dos limites da normalidade, sem assimetrias inferiores/superiores relevantes, encurvamento localizado ou irregularidades compatíveis com ectasia. Índices topográficos analisados sem alterações significativas.",
-      "Topografia corneana com padrão regular e distribuição simétrica das curvaturas. Não se observam assimetrias relevantes, encurvamentos localizados ou sinais sugestivos de ectasia. Índices topográficos dentro dos parâmetros normais.",
-      "Exame topográfico demonstrando córnea de padrão regular, com curvaturas anteriores centrais dentro da normalidade e distribuição simétrica do poder dióptrico. Sem irregularidades ou achados sugestivos de ectasia. Índices topográficos sem alterações dignas de nota.",
-    ]);
-    case "favor": return pick([
-      "Exame topográfico evidenciando padrão regular, com astigmatismo corneano regular a favor da regra, caracterizado por maior curvatura no meridiano vertical e distribuição simétrica do poder dióptrico. Não se observam sinais de irregularidade corneana ou achados sugestivos de ectasia.",
-      "Topografia corneana com padrão de astigmatismo regular a favor da regra, com meridiano mais curvo no eixo vertical. Distribuição simétrica do poder dióptrico, sem sinais de ectasia ou irregularidades topográficas.",
-      "Exame topográfico demonstrando astigmatismo corneano regular a favor da regra, com curvatura predominante no meridiano vertical e padrão dióptrico simétrico. Ausência de achados sugestivos de ectasia.",
-    ]);
-    case "contra": return pick([
-      "Exame topográfico evidenciando padrão regular, com astigmatismo corneano regular contra a regra, caracterizado por maior curvatura no meridiano horizontal e distribuição simétrica do poder dióptrico. Ausência de irregularidades topográficas sugestivas de ectasia.",
-      "Topografia corneana com padrão de astigmatismo regular contra a regra, com meridiano mais curvo no eixo horizontal. Distribuição simétrica do poder dióptrico, sem achados de irregularidade ou ectasia.",
-      "Exame topográfico demonstrando astigmatismo corneano regular contra a regra, com curvatura predominante no meridiano horizontal e simetria dióptrica preservada. Sem sinais sugestivos de ectasia.",
-    ]);
-    case "irregular": return pick([
-      "Exame topográfico evidenciando córnea com padrão assimétrico e distribuição irregular do poder dióptrico, compatível com astigmatismo corneano irregular. Observam-se irregularidades de curvatura que tornam o padrão topográfico não uniforme.",
-      "Topografia corneana com padrão irregular, apresentando distribuição assimétrica do poder dióptrico e irregularidades de curvatura compatíveis com astigmatismo corneano irregular.",
-      "Exame topográfico demonstrando padrão assimétrico de curvatura corneana, com distribuição irregular do poder dióptrico, compatível com astigmatismo irregular.",
-    ]);
-    case "obliquo": return pick([
-      "Exame topográfico evidenciando astigmatismo corneano regular oblíquo, com principais meridianos deslocados dos eixos vertical e horizontal usuais, mantendo padrão topográfico regular. Não há sinais evidentes de ectasia corneana.",
-      "Topografia corneana com astigmatismo regular oblíquo, apresentando meridianos principais fora dos eixos habituais, porém com padrão topográfico regular preservado. Sem achados de ectasia.",
-      "Exame topográfico demonstrando astigmatismo corneano oblíquo, com meridianos deslocados dos eixos convencionais, mantendo regularidade do padrão topográfico. Ausência de sinais de ectasia.",
-    ]);
-    case "ectasia": return pick([
-      "Exame topográfico evidenciando assimetria corneana significativa, com encurvamento localizado e irregularidades compatíveis com ectasia corneana. Observam-se alterações topográficas sugestivas de afinamento/encurvamento anômalo, devendo os achados ser correlacionados com a avaliação clínica e demais exames complementares.",
-      "Topografia corneana evidenciando encurvamento localizado e assimetria significativa, com achados compatíveis com ectasia corneana. Recomenda-se correlação com dados clínicos e exames complementares.",
-      "Exame topográfico demonstrando irregularidades e encurvamento localizado sugestivos de ectasia corneana, com assimetria significativa do padrão topográfico. Achados devem ser correlacionados com avaliação clínica.",
-    ]);
+    case "normal": return pick(["Exame topográfico evidenciando córnea com padrão regular, apresentando distribuição simétrica do poder dióptrico. Curvaturas corneanas anteriores centrais dentro dos limites da normalidade, sem assimetrias inferiores/superiores relevantes, encurvamento localizado ou irregularidades compatíveis com ectasia. Índices topográficos analisados sem alterações significativas.", "Topografia corneana com padrão regular e distribuição simétrica das curvaturas. Não se observam assimetrias relevantes, encurvamentos localizados ou sinais sugestivos de ectasia. Índices topográficos dentro dos parâmetros normais.", "Exame topográfico demonstrando córnea de padrão regular, com curvaturas anteriores centrais dentro da normalidade e distribuição simétrica do poder dióptrico. Sem irregularidades ou achados sugestivos de ectasia. Índices topográficos sem alterações dignas de nota."]);
+    case "favor": return pick(["Exame topográfico evidenciando padrão regular, com astigmatismo corneano regular a favor da regra, caracterizado por maior curvatura no meridiano vertical e distribuição simétrica do poder dióptrico. Não se observam sinais de irregularidade corneana ou achados sugestivos de ectasia.", "Topografia corneana com padrão de astigmatismo regular a favor da regra, com meridiano mais curvo no eixo vertical. Distribuição simétrica do poder dióptrico, sem sinais de ectasia ou irregularidades topográficas.", "Exame topográfico demonstrando astigmatismo corneano regular a favor da regra, com curvatura predominante no meridiano vertical e padrão dióptrico simétrico. Ausência de achados sugestivos de ectasia."]);
+    case "contra": return pick(["Exame topográfico evidenciando padrão regular, com astigmatismo corneano regular contra a regra, caracterizado por maior curvatura no meridiano horizontal e distribuição simétrica do poder dióptrico. Ausência de irregularidades topográficas sugestivas de ectasia.", "Topografia corneana com padrão de astigmatismo regular contra a regra, com meridiano mais curvo no eixo horizontal. Distribuição simétrica do poder dióptrico, sem achados de irregularidade ou ectasia.", "Exame topográfico demonstrando astigmatismo corneano regular contra a regra, com curvatura predominante no meridiano horizontal e simetria dióptrica preservada. Sem sinais sugestivos de ectasia."]);
+    case "irregular": return pick(["Exame topográfico evidenciando córnea com padrão assimétrico e distribuição irregular do poder dióptrico, compatível com astigmatismo corneano irregular. Observam-se irregularidades de curvatura que tornam o padrão topográfico não uniforme.", "Topografia corneana com padrão irregular, apresentando distribuição assimétrica do poder dióptrico e irregularidades de curvatura compatíveis com astigmatismo corneano irregular.", "Exame topográfico demonstrando padrão assimétrico de curvatura corneana, com distribuição irregular do poder dióptrico, compatível com astigmatismo irregular."]);
+    case "obliquo": return pick(["Exame topográfico evidenciando astigmatismo corneano regular oblíquo, com principais meridianos deslocados dos eixos vertical e horizontal usuais, mantendo padrão topográfico regular. Não há sinais evidentes de ectasia corneana.", "Topografia corneana com astigmatismo regular oblíquo, apresentando meridianos principais fora dos eixos habituais, porém com padrão topográfico regular preservado. Sem achados de ectasia.", "Exame topográfico demonstrando astigmatismo corneano oblíquo, com meridianos deslocados dos eixos convencionais, mantendo regularidade do padrão topográfico. Ausência de sinais de ectasia."]);
+    case "ectasia": return pick(["Exame topográfico evidenciando assimetria corneana significativa, com encurvamento localizado e irregularidades compatíveis com ectasia corneana. Observam-se alterações topográficas sugestivas de afinamento/encurvamento anômalo, devendo os achados ser correlacionados com a avaliação clínica e demais exames complementares.", "Topografia corneana evidenciando encurvamento localizado e assimetria significativa, com achados compatíveis com ectasia corneana. Recomenda-se correlação com dados clínicos e exames complementares.", "Exame topográfico demonstrando irregularidades e encurvamento localizado sugestivos de ectasia corneana, com assimetria significativa do padrão topográfico. Achados devem ser correlacionados com avaliação clínica."]);
     default: return "";
   }
 }
@@ -132,26 +108,10 @@ const CAMPO_OPTIONS = [
 ];
 function campoText(id) {
   switch (id) {
-    case "normal": return pick([
-      "Campimetria computadorizada sem alterações significativas, dentro dos limites da normalidade. Índices de confiabilidade e parâmetros globais sem alterações relevantes.",
-      "Campimetria computadorizada dentro dos limites da normalidade, sem defeitos campimétricos significativos. Índices de confiabilidade adequados e parâmetros globais preservados.",
-      "Exame campimétrico computadorizado sem achados dignos de nota, com campo visual dentro dos parâmetros normais. Índices globais e de confiabilidade sem alterações.",
-    ]);
-    case "suspeita": return pick([
-      "Campimetria computadorizada evidenciando alterações discretas, com defeitos localizados/sutis que levantam suspeita de comprometimento glaucomatoso, devendo os achados ser correlacionados com exame clínico e avaliação estrutural do nervo óptico. Índices com alterações leves.",
-      "Campimetria computadorizada com defeitos sutis e localizados, sugestivos de possível comprometimento glaucomatoso. Recomenda-se correlação com avaliação clínica e estrutural do nervo óptico. Índices discretamente alterados.",
-      "Exame campimétrico evidenciando alterações discretas e localizadas, com achados que levantam suspeita de dano glaucomatoso inicial. Correlação clínica e estrutural recomendada. Índices com leves alterações.",
-    ]);
-    case "inicial": return pick([
-      "Campimetria computadorizada evidenciando defeitos compatíveis com dano glaucomatoso inicial, com alterações localizadas do campo visual e comprometimento leve dos índices analisados.",
-      "Campimetria computadorizada com defeitos localizados do campo visual compatíveis com glaucoma inicial. Índices analisados com comprometimento leve.",
-      "Exame campimétrico demonstrando alterações localizadas do campo visual, compatíveis com dano glaucomatoso em estágio inicial. Comprometimento discreto dos índices globais.",
-    ]);
-    case "avancado": return pick([
-      "Campimetria computadorizada evidenciando defeitos extensos e significativos do campo visual, compatíveis com dano glaucomatoso avançado, com importante comprometimento dos índices globais.",
-      "Campimetria computadorizada com defeitos extensos e marcantes do campo visual, indicativos de dano glaucomatoso avançado. Índices globais significativamente comprometidos.",
-      "Exame campimétrico demonstrando comprometimento extenso do campo visual, com defeitos significativos compatíveis com glaucoma avançado. Importante alteração dos índices globais.",
-    ]);
+    case "normal": return pick(["Campimetria computadorizada sem alterações significativas, dentro dos limites da normalidade. Índices de confiabilidade e parâmetros globais sem alterações relevantes.", "Campimetria computadorizada dentro dos limites da normalidade, sem defeitos campimétricos significativos. Índices de confiabilidade adequados e parâmetros globais preservados.", "Exame campimétrico computadorizado sem achados dignos de nota, com campo visual dentro dos parâmetros normais. Índices globais e de confiabilidade sem alterações."]);
+    case "suspeita": return pick(["Campimetria computadorizada evidenciando alterações discretas, com defeitos localizados/sutis que levantam suspeita de comprometimento glaucomatoso, devendo os achados ser correlacionados com exame clínico e avaliação estrutural do nervo óptico. Índices com alterações leves.", "Campimetria computadorizada com defeitos sutis e localizados, sugestivos de possível comprometimento glaucomatoso. Recomenda-se correlação com avaliação clínica e estrutural do nervo óptico. Índices discretamente alterados.", "Exame campimétrico evidenciando alterações discretas e localizadas, com achados que levantam suspeita de dano glaucomatoso inicial. Correlação clínica e estrutural recomendada. Índices com leves alterações."]);
+    case "inicial": return pick(["Campimetria computadorizada evidenciando defeitos compatíveis com dano glaucomatoso inicial, com alterações localizadas do campo visual e comprometimento leve dos índices analisados.", "Campimetria computadorizada com defeitos localizados do campo visual compatíveis com glaucoma inicial. Índices analisados com comprometimento leve.", "Exame campimétrico demonstrando alterações localizadas do campo visual, compatíveis com dano glaucomatoso em estágio inicial. Comprometimento discreto dos índices globais."]);
+    case "avancado": return pick(["Campimetria computadorizada evidenciando defeitos extensos e significativos do campo visual, compatíveis com dano glaucomatoso avançado, com importante comprometimento dos índices globais.", "Campimetria computadorizada com defeitos extensos e marcantes do campo visual, indicativos de dano glaucomatoso avançado. Índices globais significativamente comprometidos.", "Exame campimétrico demonstrando comprometimento extenso do campo visual, com defeitos significativos compatíveis com glaucoma avançado. Importante alteração dos índices globais."]);
     default: return "";
   }
 }
@@ -165,21 +125,9 @@ const STEREO_OPTIONS = [
 function stereoText(id, excH, excV) {
   const exc = `${excH} x ${excV}`;
   switch (id) {
-    case "normal": return pick([
-      `Disco óptico com contornos nítidos, regulares e fisiológicos, coloração preservada, apresentando escavação medindo ${exc}, sem notchings ou afilamentos de rima.`,
-      `Disco óptico de aspecto fisiológico, contornos nítidos e regulares, coloração normal, com escavação de ${exc}. Sem notchings ou afilamentos da rima neural.`,
-      `Disco óptico com contornos regulares e nítidos, coloração preservada, escavação de ${exc}, sem sinais de afilamento de rima ou notchings.`,
-    ]);
-    case "atrofia": return pick([
-      "Disco óptico apresentando sinais de atrofia, com alteração de coloração e aspecto compatível com perda tecidual/neurorretiniana, devendo o achado ser correlacionado com contexto clínico e funcional.",
-      "Disco óptico com sinais de atrofia e alteração da coloração, compatível com perda neurorretiniana. Correlação clínica e funcional recomendada.",
-      "Disco óptico evidenciando aspecto atrófico, com palidez e alteração de coloração sugestivas de perda tecidual. Recomenda-se correlação com dados clínicos e funcionais.",
-    ]);
-    case "aumentada": return pick([
-      `Disco óptico com aumento da escavação papilar (${exc}), observando-se relação escavação/disco ampliada em comparação ao padrão fisiológico, sem prejuízo de correlação com demais dados clínicos e estruturais.`,
-      `Disco óptico com escavação ampliada (${exc}), relação escavação/disco acima do padrão fisiológico. Recomenda-se correlação com dados clínicos e exames estruturais.`,
-      `Disco óptico apresentando escavação aumentada (${exc}), com relação escavação/disco ampliada. Achado deve ser correlacionado com avaliação clínica e estrutural.`,
-    ]);
+    case "normal": return pick([`Disco óptico com contornos nítidos, regulares e fisiológicos, coloração preservada, apresentando escavação medindo ${exc}, sem notchings ou afilamentos de rima.`, `Disco óptico de aspecto fisiológico, contornos nítidos e regulares, coloração normal, com escavação de ${exc}. Sem notchings ou afilamentos da rima neural.`, `Disco óptico com contornos regulares e nítidos, coloração preservada, escavação de ${exc}, sem sinais de afilamento de rima ou notchings.`]);
+    case "atrofia": return pick(["Disco óptico apresentando sinais de atrofia, com alteração de coloração e aspecto compatível com perda tecidual/neurorretiniana, devendo o achado ser correlacionado com contexto clínico e funcional.", "Disco óptico com sinais de atrofia e alteração da coloração, compatível com perda neurorretiniana. Correlação clínica e funcional recomendada.", "Disco óptico evidenciando aspecto atrófico, com palidez e alteração de coloração sugestivas de perda tecidual. Recomenda-se correlação com dados clínicos e funcionais."]);
+    case "aumentada": return pick([`Disco óptico com aumento da escavação papilar (${exc}), observando-se relação escavação/disco ampliada em comparação ao padrão fisiológico, sem prejuízo de correlação com demais dados clínicos e estruturais.`, `Disco óptico com escavação ampliada (${exc}), relação escavação/disco acima do padrão fisiológico. Recomenda-se correlação com dados clínicos e exames estruturais.`, `Disco óptico apresentando escavação aumentada (${exc}), com relação escavação/disco ampliada. Achado deve ser correlacionado com avaliação clínica e estrutural.`]);
     default: return "";
   }
 }
@@ -204,6 +152,147 @@ function lisaminaText(id) {
 function classifySchirmer(v) { return v >= 10 ? "normal" : v >= 5 ? "reduzido" : "muito_reduzido"; }
 const DEFAULT_LACRIMAL = { schirmer: 18, lisamina: "ausencia" };
 
+// ===================== OCT MÁCULA =====================
+const OCTMAC_OPTIONS = [
+  { id: "normal", label: "Normal" },
+  { id: "edema", label: "Edema macular / cistos" },
+  { id: "fluido_sub", label: "Fluido sub-retiniano" },
+  { id: "membrana", label: "Membrana epirretiniana" },
+  { id: "tracao", label: "Tração vítreo-macular" },
+  { id: "buraco", label: "Buraco macular" },
+  { id: "atrofia", label: "Afinamento / atrofia" },
+  { id: "inespecifica", label: "Alteração inespecífica" },
+];
+const OCTMAC_GRAU = [
+  { id: "none", label: "—" },
+  { id: "discreto", label: "Discreto" },
+  { id: "moderado", label: "Moderado" },
+  { id: "acentuado", label: "Acentuado" },
+];
+function octMacText(id, grau) {
+  const g = grau !== "none" ? grau : "";
+  const gi = g ? (g === "discreto" ? pick(["discreto", "leve"]) : g === "moderado" ? "moderado" : pick(["acentuado", "importante"])) : "";
+  switch (id) {
+    case "normal": return pick([
+      "Exame de tomografia de coerência óptica da mácula evidenciando depressão foveal preservada, arquitetura retiniana mantida, camadas retinianas bem definidas, sem sinais de fluido intra ou sub-retiniano, sem membrana epirretiniana e sem alterações estruturais significativas.",
+      "OCT de mácula com depressão foveal preservada, arquitetura retiniana íntegra e camadas bem diferenciadas. Sem fluido intra ou sub-retiniano, sem membrana epirretiniana e sem alterações estruturais relevantes.",
+      "Tomografia de coerência óptica da mácula demonstrando perfil foveal preservado, camadas retinianas bem definidas, sem evidência de fluido, membrana epirretiniana ou alterações estruturais significativas.",
+    ]);
+    case "edema": return pick([
+      `Exame de tomografia de coerência óptica da mácula evidenciando ${gi ? gi + " " : ""}espessamento retiniano com presença de espaços cistoides intrarretinianos, compatível com edema macular.`,
+      `OCT de mácula com ${gi ? gi + " " : ""}espessamento retiniano e cistos intrarretinianos, compatível com edema macular.`,
+      `Tomografia de coerência óptica da mácula demonstrando edema macular ${gi ? gi + " " : ""}com espaços cistoides intrarretinianos.`,
+    ]);
+    case "fluido_sub": return pick([
+      "Exame de tomografia de coerência óptica da mácula evidenciando descolamento neurossensorial com presença de fluido sub-retiniano na região macular.",
+      "OCT de mácula com descolamento neurossensorial e fluido sub-retiniano na região macular.",
+      "Tomografia de coerência óptica da mácula demonstrando presença de fluido sub-retiniano com descolamento neurossensorial.",
+    ]);
+    case "membrana": {
+      const grauMembr = gi || pick(["discreta", "moderada"]);
+      return pick([
+        `Exame de tomografia de coerência óptica da mácula evidenciando membrana epirretiniana, com ${grauMembr} irregularidade da superfície retiniana interna e distorção do contorno foveal.`,
+        `OCT de mácula com membrana epirretiniana e ${grauMembr} distorção da superfície retiniana interna e do perfil foveal.`,
+        `Tomografia de coerência óptica da mácula demonstrando membrana epirretiniana com ${grauMembr} repercussão sobre a superfície retiniana e contorno foveal.`,
+      ]);
+    }
+    case "tracao": return pick([
+      "Exame de tomografia de coerência óptica da mácula evidenciando adesão/tração vítreo-macular, com deformação do contorno foveal e alteração da arquitetura macular.",
+      "OCT de mácula com tração vítreo-macular e deformação do perfil foveal, com alteração da arquitetura macular.",
+      "Tomografia de coerência óptica da mácula demonstrando tração vítreo-macular com repercussão sobre o contorno foveal e a arquitetura retiniana.",
+    ]);
+    case "buraco": return pick([
+      "Exame de tomografia de coerência óptica da mácula evidenciando defeito foveal compatível com buraco macular.",
+      "OCT de mácula com defeito de espessura total/lamelar na região foveal, compatível com buraco macular.",
+      "Tomografia de coerência óptica da mácula demonstrando solução de continuidade foveal compatível com buraco macular.",
+    ]);
+    case "atrofia": return pick([
+      "Exame de tomografia de coerência óptica da mácula evidenciando afinamento das camadas retinianas na região macular, compatível com alteração atrófica.",
+      "OCT de mácula com rarefação tecidual e afinamento das camadas retinianas na região macular, de aspecto atrófico.",
+      "Tomografia de coerência óptica da mácula demonstrando afinamento macular com rarefação das camadas retinianas, compatível com atrofia.",
+    ]);
+    case "inespecifica": return pick([
+      "Exame de tomografia de coerência óptica da mácula evidenciando discreta alteração da arquitetura foveal, sem sinais evidentes de fluido intra ou sub-retiniano.",
+      "OCT de mácula com irregularidade estrutural macular discreta, sem fluido intra ou sub-retiniano identificável.",
+      "Tomografia de coerência óptica da mácula demonstrando sutil alteração do perfil foveal, sem sinais de fluido ou achados estruturais maiores.",
+    ]);
+    default: return "";
+  }
+}
+const DEFAULT_OCTMAC = { tipo: "normal", grau: "none" };
+
+// ===================== OCT NERVO ÓPTICO =====================
+const OCTNO_OPTIONS = [
+  { id: "normal", label: "Normal" },
+  { id: "suspeita", label: "Suspeita glaucomatosa" },
+  { id: "focal", label: "Afinamento focal RNFL" },
+  { id: "difuso", label: "Afinamento difuso RNFL" },
+  { id: "escavacao", label: "Escavação ↑ + correlação" },
+  { id: "avancado", label: "Perda estrutural avançada" },
+];
+const OCTNO_SETORES = [
+  { id: "superior", label: "Superior" },
+  { id: "inferior", label: "Inferior" },
+  { id: "temporal", label: "Temporal" },
+  { id: "nasal", label: "Nasal" },
+  { id: "difuso", label: "Difuso" },
+];
+function octNoText(id, setores) {
+  const setorStr = setores.length > 0 ? (" em setor" + (setores.length > 1 ? "es " : " ") + setores.join(" e ")) : "";
+  switch (id) {
+    case "normal": return pick([
+      "Exame de tomografia de coerência óptica do nervo óptico evidenciando espessura da camada de fibras nervosas da retina dentro dos limites da normalidade, sem afinamentos focais ou difusos significativos. Parâmetros estruturais analisados sem alterações relevantes.",
+      "OCT do nervo óptico com espessura da RNFL dentro dos limites normais, sem afinamentos focais ou difusos. Parâmetros estruturais sem alterações significativas.",
+      "Tomografia de coerência óptica do nervo óptico demonstrando camada de fibras nervosas da retina preservada, sem afinamentos relevantes. Parâmetros estruturais dentro da normalidade.",
+    ]);
+    case "suspeita": return pick([
+      "Exame de tomografia de coerência óptica do nervo óptico evidenciando discreto afinamento/setores limítrofes da camada de fibras nervosas da retina" + setorStr + ", achado suspeito para dano glaucomatoso inicial, devendo ser correlacionado com campimetria, disco óptico e contexto clínico.",
+      "OCT do nervo óptico com setores limítrofes/discretamente afinados da RNFL" + setorStr + ", sugestivo de possível dano glaucomatoso inicial. Correlação com campimetria e avaliação clínica recomendada.",
+      "Tomografia de coerência óptica do nervo óptico demonstrando discretas alterações da RNFL" + setorStr + ", levantando suspeita de comprometimento glaucomatoso. Recomenda-se correlação clínica e funcional.",
+    ]);
+    case "focal": return pick([
+      "Exame de tomografia de coerência óptica do nervo óptico evidenciando afinamento focal da camada de fibras nervosas da retina" + setorStr + ", compatível com perda estrutural localizada.",
+      "OCT do nervo óptico com afinamento focal da RNFL" + setorStr + ", indicativo de perda estrutural localizada.",
+      "Tomografia de coerência óptica do nervo óptico demonstrando redução focal da espessura da RNFL" + setorStr + ", compatível com perda estrutural localizada.",
+    ]);
+    case "difuso": return pick([
+      "Exame de tomografia de coerência óptica do nervo óptico evidenciando afinamento difuso da camada de fibras nervosas da retina, sem preservação setorial significativa, compatível com perda estrutural difusa.",
+      "OCT do nervo óptico com afinamento difuso da RNFL, sem setores significativamente preservados, compatível com perda estrutural generalizada.",
+      "Tomografia de coerência óptica do nervo óptico demonstrando redução difusa da espessura da RNFL, compatível com perda estrutural difusa.",
+    ]);
+    case "escavacao": return pick([
+      "Exame de tomografia de coerência óptica do nervo óptico evidenciando aumento da escavação papilar associado a redução estrutural da camada de fibras nervosas da retina.",
+      "OCT do nervo óptico com escavação papilar aumentada e redução correspondente da RNFL, indicando correlação estrutural.",
+      "Tomografia de coerência óptica do nervo óptico demonstrando escavação papilar ampliada com redução associada da espessura da RNFL.",
+    ]);
+    case "avancado": return pick([
+      "Exame de tomografia de coerência óptica do nervo óptico evidenciando importante redução da espessura da camada de fibras nervosas da retina, compatível com dano estrutural avançado.",
+      "OCT do nervo óptico com acentuada redução da RNFL, compatível com perda estrutural avançada.",
+      "Tomografia de coerência óptica do nervo óptico demonstrando significativa redução da espessura da RNFL, indicativa de dano estrutural avançado.",
+    ]);
+    default: return "";
+  }
+}
+const DEFAULT_OCTNO = { tipo: "normal", setores: [] };
+
+// ===================== PAQUIMETRIA =====================
+function classifyPaqui(v) { return v < 500 ? "muito_fina" : v < 520 ? "fina" : v <= 560 ? "habitual" : "espessa"; }
+function paquiText(val, interp) {
+  const base = pick([
+    `Paquimetria ultrassônica evidenciando espessura corneana central de ${val} µm`,
+    `Paquimetria ultrassônica com espessura corneana central de ${val} µm`,
+    `Espessura corneana central aferida por paquimetria ultrassônica: ${val} µm`,
+  ]);
+  if (!interp) return base + ".";
+  const c = classifyPaqui(val);
+  const interpText = c === "muito_fina" ? pick([", valor abaixo da faixa habitual.", ", córnea mais fina que o habitual."]) :
+    c === "fina" ? pick([", valor na faixa inferior da normalidade.", ", córnea no limite inferior da faixa habitual."]) :
+    c === "habitual" ? pick([", dentro da faixa habitual.", ", valor dentro dos parâmetros habituais."]) :
+    pick([", valor acima da faixa habitual.", ", córnea mais espessa que o habitual."]);
+  return base + interpText;
+}
+const DEFAULT_PAQUI = { valor: 540, interp: false };
+
 // ===================== EXAM COLORS =====================
 const EC = {
   retina: { main: "#0369a1", border: "#bae6fd" },
@@ -212,11 +301,14 @@ const EC = {
   campo: { main: "#b45309", border: "#fde68a" },
   stereo: { main: "#be185d", border: "#fbcfe8" },
   lacrimal: { main: "#4338ca", border: "#c7d2fe" },
+  octmac: { main: "#059669", border: "#a7f3d0" },
+  octno: { main: "#d97706", border: "#fde68a" },
+  paqui: { main: "#6366f1", border: "#c7d2fe" },
 };
 
 // ===================== MAIN COMPONENT =====================
 export default function LaudoOftalmologico() {
-  const [exams, setExams] = useState({ retina: false, micro: false, topo: false, campo: false, stereo: false, lacrimal: false });
+  const [exams, setExams] = useState({ retina: false, micro: false, topo: false, campo: false, stereo: false, lacrimal: false, octmac: false, octno: false, paqui: false });
   const toggle = (k) => setExams((p) => ({ ...p, [k]: !p[k] }));
 
   const [retinaOD, setRetinaOD] = useState({ ...DEFAULT_RETINA });
@@ -231,6 +323,12 @@ export default function LaudoOftalmologico() {
   const [stereoOE, setStereoOE] = useState({ ...DEFAULT_STEREO });
   const [lacOD, setLacOD] = useState({ ...DEFAULT_LACRIMAL });
   const [lacOE, setLacOE] = useState({ ...DEFAULT_LACRIMAL });
+  const [octmacOD, setOctmacOD] = useState({ ...DEFAULT_OCTMAC });
+  const [octmacOE, setOctmacOE] = useState({ ...DEFAULT_OCTMAC });
+  const [octnoOD, setOctnoOD] = useState({ ...DEFAULT_OCTNO });
+  const [octnoOE, setOctnoOE] = useState({ ...DEFAULT_OCTNO });
+  const [paquiOD, setPaquiOD] = useState({ ...DEFAULT_PAQUI });
+  const [paquiOE, setPaquiOE] = useState({ ...DEFAULT_PAQUI });
 
   const [laudoText, setLaudoText] = useState("");
   const [copied, setCopied] = useState(false);
@@ -289,21 +387,11 @@ export default function LaudoOftalmologico() {
       const cOD = classifySchirmer(sOD), cOE = classifySchirmer(sOE);
       let schTxt = "Teste de Schirmer:\n";
       if (cOD === "normal" && cOE === "normal") {
-        schTxt += pick([
-          `Olho Direito: ${sOD} mm; Olho Esquerdo: ${sOE} mm — valores dentro de faixa preservada para produção lacrimal.`,
-          `Olho Direito: ${sOD} mm; Olho Esquerdo: ${sOE} mm — produção lacrimal dentro dos parâmetros normais.`,
-          `Olho Direito: ${sOD} mm; Olho Esquerdo: ${sOE} mm — valores compatíveis com produção lacrimal adequada.`,
-        ]);
+        schTxt += pick([`Olho Direito: ${sOD} mm; Olho Esquerdo: ${sOE} mm — valores dentro de faixa preservada para produção lacrimal.`, `Olho Direito: ${sOD} mm; Olho Esquerdo: ${sOE} mm — produção lacrimal dentro dos parâmetros normais.`, `Olho Direito: ${sOD} mm; Olho Esquerdo: ${sOE} mm — valores compatíveis com produção lacrimal adequada.`]);
       } else if (cOD === "muito_reduzido" || cOE === "muito_reduzido") {
-        schTxt += pick([
-          `Teste de Schirmer evidenciando acentuada redução da produção lacrimal, com medida de ${sOD} mm no olho direito e ${sOE} mm no olho esquerdo.`,
-          `Acentuada redução da produção lacrimal ao teste de Schirmer: ${sOD} mm (OD) e ${sOE} mm (OE).`,
-        ]);
+        schTxt += pick([`Teste de Schirmer evidenciando acentuada redução da produção lacrimal, com medida de ${sOD} mm no olho direito e ${sOE} mm no olho esquerdo.`, `Acentuada redução da produção lacrimal ao teste de Schirmer: ${sOD} mm (OD) e ${sOE} mm (OE).`]);
       } else {
-        schTxt += pick([
-          `Teste de Schirmer evidenciando redução da produção lacrimal, com medida de ${sOD} mm no olho direito e ${sOE} mm no olho esquerdo.`,
-          `Redução da produção lacrimal ao teste de Schirmer: ${sOD} mm (OD) e ${sOE} mm (OE).`,
-        ]);
+        schTxt += pick([`Teste de Schirmer evidenciando redução da produção lacrimal, com medida de ${sOD} mm no olho direito e ${sOE} mm no olho esquerdo.`, `Redução da produção lacrimal ao teste de Schirmer: ${sOD} mm (OD) e ${sOE} mm (OE).`]);
       }
       parts.push(schTxt);
       parts.push("\nTeste da Lisamina Verde:");
@@ -311,22 +399,46 @@ export default function LaudoOftalmologico() {
       parts.push(`Olho Esquerdo: ${lisaminaText(lacOE.lisamina)}`);
     }
 
+    if (exams.octmac) {
+      if (parts.length) parts.push("");
+      parts.push("TOMOGRAFIA DE COERÊNCIA ÓPTICA DE MÁCULA\n");
+      parts.push(`Olho Direito: ${octMacText(octmacOD.tipo, octmacOD.grau)}`);
+      parts.push(`Olho Esquerdo: ${octMacText(octmacOE.tipo, octmacOE.grau)}`);
+    }
+
+    if (exams.octno) {
+      if (parts.length) parts.push("");
+      parts.push("TOMOGRAFIA DE COERÊNCIA ÓPTICA DE NERVO ÓPTICO\n");
+      parts.push(`Olho Direito: ${octNoText(octnoOD.tipo, octnoOD.setores)}`);
+      parts.push(`Olho Esquerdo: ${octNoText(octnoOE.tipo, octnoOE.setores)}`);
+    }
+
+    if (exams.paqui) {
+      if (parts.length) parts.push("");
+      parts.push("PAQUIMETRIA ULTRASSÔNICA\n");
+      parts.push(`Olho Direito: ${paquiText(paquiOD.valor, paquiOD.interp)}`);
+      parts.push(`Olho Esquerdo: ${paquiText(paquiOE.valor, paquiOE.interp)}`);
+    }
+
     setLaudoText(parts.join("\n"));
-  }, [exams, retinaOD, retinaOE, microOD, microOE, topoOD, topoOE, campoOD, campoOE, stereoOD, stereoOE, lacOD, lacOE]);
+  }, [exams, retinaOD, retinaOE, microOD, microOE, topoOD, topoOE, campoOD, campoOE, stereoOD, stereoOE, lacOD, lacOE, octmacOD, octmacOE, octnoOD, octnoOE, paquiOD, paquiOE]);
 
   useEffect(() => {
     if (Object.values(exams).some(Boolean)) generateReport();
     else setLaudoText("");
-  }, [exams, retinaOD, retinaOE, microOD, microOE, topoOD, topoOE, campoOD, campoOE, stereoOD, stereoOE, lacOD, lacOE, generateReport]);
+  }, [exams, retinaOD, retinaOE, microOD, microOE, topoOD, topoOE, campoOD, campoOE, stereoOD, stereoOE, lacOD, lacOE, octmacOD, octmacOE, octnoOD, octnoOE, paquiOD, paquiOE, generateReport]);
 
   const clearAll = () => {
-    setExams({ retina: false, micro: false, topo: false, campo: false, stereo: false, lacrimal: false });
+    setExams({ retina: false, micro: false, topo: false, campo: false, stereo: false, lacrimal: false, octmac: false, octno: false, paqui: false });
     setRetinaOD({ ...DEFAULT_RETINA }); setRetinaOE({ ...DEFAULT_RETINA });
     setMicroOD({ ...DEFAULT_MICRO }); setMicroOE({ ...DEFAULT_MICRO });
     setTopoOD("normal"); setTopoOE("normal");
     setCampoOD("normal"); setCampoOE("normal");
     setStereoOD({ ...DEFAULT_STEREO }); setStereoOE({ ...DEFAULT_STEREO });
     setLacOD({ ...DEFAULT_LACRIMAL }); setLacOE({ ...DEFAULT_LACRIMAL });
+    setOctmacOD({ ...DEFAULT_OCTMAC }); setOctmacOE({ ...DEFAULT_OCTMAC });
+    setOctnoOD({ ...DEFAULT_OCTNO }); setOctnoOE({ ...DEFAULT_OCTNO });
+    setPaquiOD({ ...DEFAULT_PAQUI }); setPaquiOE({ ...DEFAULT_PAQUI });
     setLaudoText(""); setCopied(false);
   };
 
@@ -368,6 +480,9 @@ export default function LaudoOftalmologico() {
           { k: "campo", label: "Campimetria", c: EC.campo.main },
           { k: "stereo", label: "Estereofoto", c: EC.stereo.main },
           { k: "lacrimal", label: "Filme Lacrimal", c: EC.lacrimal.main },
+          { k: "octmac", label: "OCT Mácula", c: EC.octmac.main },
+          { k: "octno", label: "OCT Nervo Óptico", c: EC.octno.main },
+          { k: "paqui", label: "Paquimetria", c: EC.paqui.main },
         ].map(({ k, label, c }) => (
           <button key={k} onClick={() => toggle(k)} style={{
             ...S.tog, background: exams[k] ? c : "#f1f5f9", color: exams[k] ? "#fff" : "#475569",
@@ -385,78 +500,63 @@ export default function LaudoOftalmologico() {
         { l: "Exame normal", fn: () => { setRetinaOD({ ...DEFAULT_RETINA }); setRetinaOE({ ...DEFAULT_RETINA }); } },
         { l: "OD → OE", fn: () => setRetinaOE({ ...retinaOD }) },
         { l: "OE → OD", fn: () => setRetinaOD({ ...retinaOE }) },
-      ]}>
-        <div style={S.eyeRow}>
-          <RetinaEye label="OD" data={retinaOD} set={setRetinaOD} />
-          <div style={S.divider} />
-          <RetinaEye label="OE" data={retinaOE} set={setRetinaOE} />
-        </div>
-      </EBlock>}
+      ]}><div style={S.eyeRow}><RetinaEye label="OD" data={retinaOD} set={setRetinaOD} /><div style={S.divider} /><RetinaEye label="OE" data={retinaOE} set={setRetinaOE} /></div></EBlock>}
 
       {/* MICRO */}
       {exams.micro && <EBlock t="Microscopia Especular" c={EC.micro} acts={[
         { l: "Exame normal", fn: () => { setMicroOD({ hex: 39, density: 3010, area: "normal" }); setMicroOE({ hex: 41, density: 2909, area: "normal" }); } },
         { l: "OD → OE", fn: () => setMicroOE({ ...microOD }) },
         { l: "OE → OD", fn: () => setMicroOD({ ...microOE }) },
-      ]}>
-        <div style={S.eyeRow}>
-          <MicroEye label="OD" data={microOD} set={setMicroOD} />
-          <div style={S.divider} />
-          <MicroEye label="OE" data={microOE} set={setMicroOE} />
-        </div>
-      </EBlock>}
+      ]}><div style={S.eyeRow}><MicroEye label="OD" data={microOD} set={setMicroOD} /><div style={S.divider} /><MicroEye label="OE" data={microOE} set={setMicroOE} /></div></EBlock>}
 
       {/* TOPOGRAFIA */}
       {exams.topo && <EBlock t="Topografia de Córnea" c={EC.topo} acts={[
         { l: "Exame normal", fn: () => { setTopoOD("normal"); setTopoOE("normal"); } },
         { l: "OD → OE", fn: () => setTopoOE(topoOD) },
         { l: "OE → OD", fn: () => setTopoOD(topoOE) },
-      ]}>
-        <div style={S.eyeRow}>
-          <SelEye label="OD" opts={TOPO_OPTIONS} val={topoOD} set={setTopoOD} />
-          <div style={S.divider} />
-          <SelEye label="OE" opts={TOPO_OPTIONS} val={topoOE} set={setTopoOE} />
-        </div>
-      </EBlock>}
+      ]}><div style={S.eyeRow}><SelEye label="OD" opts={TOPO_OPTIONS} val={topoOD} set={setTopoOD} /><div style={S.divider} /><SelEye label="OE" opts={TOPO_OPTIONS} val={topoOE} set={setTopoOE} /></div></EBlock>}
 
       {/* CAMPIMETRIA */}
       {exams.campo && <EBlock t="Campimetria Computadorizada" c={EC.campo} acts={[
         { l: "Exame normal", fn: () => { setCampoOD("normal"); setCampoOE("normal"); } },
         { l: "OD → OE", fn: () => setCampoOE(campoOD) },
         { l: "OE → OD", fn: () => setCampoOD(campoOE) },
-      ]}>
-        <div style={S.eyeRow}>
-          <SelEye label="OD" opts={CAMPO_OPTIONS} val={campoOD} set={setCampoOD} />
-          <div style={S.divider} />
-          <SelEye label="OE" opts={CAMPO_OPTIONS} val={campoOE} set={setCampoOE} />
-        </div>
-      </EBlock>}
+      ]}><div style={S.eyeRow}><SelEye label="OD" opts={CAMPO_OPTIONS} val={campoOD} set={setCampoOD} /><div style={S.divider} /><SelEye label="OE" opts={CAMPO_OPTIONS} val={campoOE} set={setCampoOE} /></div></EBlock>}
 
       {/* ESTEREOFOTO */}
       {exams.stereo && <EBlock t="Estereofoto de Papila" c={EC.stereo} acts={[
         { l: "Exame normal", fn: () => { setStereoOD({ ...DEFAULT_STEREO }); setStereoOE({ ...DEFAULT_STEREO }); } },
         { l: "OD → OE", fn: () => setStereoOE({ ...stereoOD }) },
         { l: "OE → OD", fn: () => setStereoOD({ ...stereoOE }) },
-      ]}>
-        <div style={S.eyeRow}>
-          <StereoEye label="OD" data={stereoOD} set={setStereoOD} />
-          <div style={S.divider} />
-          <StereoEye label="OE" data={stereoOE} set={setStereoOE} />
-        </div>
-      </EBlock>}
+      ]}><div style={S.eyeRow}><StereoEye label="OD" data={stereoOD} set={setStereoOD} /><div style={S.divider} /><StereoEye label="OE" data={stereoOE} set={setStereoOE} /></div></EBlock>}
 
       {/* FILME LACRIMAL */}
       {exams.lacrimal && <EBlock t="Avaliação do Filme Lacrimal" c={EC.lacrimal} acts={[
         { l: "Exame normal", fn: () => { setLacOD({ ...DEFAULT_LACRIMAL }); setLacOE({ ...DEFAULT_LACRIMAL }); } },
         { l: "OD → OE", fn: () => setLacOE({ ...lacOD }) },
         { l: "OE → OD", fn: () => setLacOD({ ...lacOE }) },
-      ]}>
-        <div style={S.eyeRow}>
-          <LacEye label="OD" data={lacOD} set={setLacOD} />
-          <div style={S.divider} />
-          <LacEye label="OE" data={lacOE} set={setLacOE} />
-        </div>
-      </EBlock>}
+      ]}><div style={S.eyeRow}><LacEye label="OD" data={lacOD} set={setLacOD} /><div style={S.divider} /><LacEye label="OE" data={lacOE} set={setLacOE} /></div></EBlock>}
+
+      {/* OCT MÁCULA */}
+      {exams.octmac && <EBlock t="OCT de Mácula" c={EC.octmac} acts={[
+        { l: "Exame normal", fn: () => { setOctmacOD({ ...DEFAULT_OCTMAC }); setOctmacOE({ ...DEFAULT_OCTMAC }); } },
+        { l: "OD → OE", fn: () => setOctmacOE({ ...octmacOD }) },
+        { l: "OE → OD", fn: () => setOctmacOD({ ...octmacOE }) },
+      ]}><div style={S.eyeRow}><OctMacEye label="OD" data={octmacOD} set={setOctmacOD} /><div style={S.divider} /><OctMacEye label="OE" data={octmacOE} set={setOctmacOE} /></div></EBlock>}
+
+      {/* OCT NERVO ÓPTICO */}
+      {exams.octno && <EBlock t="OCT de Nervo Óptico" c={EC.octno} acts={[
+        { l: "Exame normal", fn: () => { setOctnoOD({ ...DEFAULT_OCTNO }); setOctnoOE({ ...DEFAULT_OCTNO }); } },
+        { l: "OD → OE", fn: () => setOctnoOE({ ...octnoOD }) },
+        { l: "OE → OD", fn: () => setOctnoOD({ ...octnoOE }) },
+      ]}><div style={S.eyeRow}><OctNoEye label="OD" data={octnoOD} set={setOctnoOD} /><div style={S.divider} /><OctNoEye label="OE" data={octnoOE} set={setOctnoOE} /></div></EBlock>}
+
+      {/* PAQUIMETRIA */}
+      {exams.paqui && <EBlock t="Paquimetria Ultrassônica" c={EC.paqui} acts={[
+        { l: "Valores iguais", fn: () => setPaquiOE({ ...paquiOD }) },
+        { l: "OD → OE", fn: () => setPaquiOE({ ...paquiOD }) },
+        { l: "OE → OD", fn: () => setPaquiOD({ ...paquiOE }) },
+      ]}><div style={S.eyeRow}><PaquiEye label="OD" data={paquiOD} set={setPaquiOD} /><div style={S.divider} /><PaquiEye label="OE" data={paquiOE} set={setPaquiOE} /></div></EBlock>}
 
       {/* OUTPUT */}
       {laudoText && (
@@ -527,24 +627,17 @@ function MicroEye({ label, data, set }) {
       <div style={S.eyeL}>{label}</div>
       <div style={{ marginBottom: 7 }}>
         <div style={S.cLbl}>Hexagonalidade <Bdg c={hc === "normal" ? "g" : hc === "limítrofe" ? "y" : "r"} t={hc === "normal" ? "Normal" : hc === "limítrofe" ? "Limítrofe" : "Reduzida"} /></div>
-        <div style={S.sRow}>
-          <input type="range" min={10} max={70} value={data.hex} onChange={(e) => set((p) => ({ ...p, hex: +e.target.value }))} />
-          <NI v={data.hex} set={(v) => set((p) => ({ ...p, hex: v }))} u="%" mx={100} />
-        </div>
+        <div style={S.sRow}><input type="range" min={10} max={70} value={data.hex} onChange={(e) => set((p) => ({ ...p, hex: +e.target.value }))} /><NI v={data.hex} set={(v) => set((p) => ({ ...p, hex: v }))} u="%" mx={100} /></div>
       </div>
       <div style={{ marginBottom: 7 }}>
         <div style={S.cLbl}>Densidade endotelial <Bdg c={dc === "normal" ? "g" : dc === "discreta" ? "y" : dc === "baixa" ? "o" : "r"} t={dc === "normal" ? "Normal" : dc === "discreta" ? "Discr. reduzida" : dc === "baixa" ? "Baixa" : "Muito baixa"} /></div>
-        <div style={S.sRow}>
-          <input type="range" min={500} max={4000} step={10} value={data.density} onChange={(e) => set((p) => ({ ...p, density: +e.target.value }))} />
-          <NI v={data.density} set={(v) => set((p) => ({ ...p, density: v }))} u="cel/mm²" mx={5000} s={10} />
-        </div>
+        <div style={S.sRow}><input type="range" min={500} max={4000} step={10} value={data.density} onChange={(e) => set((p) => ({ ...p, density: +e.target.value }))} /><NI v={data.density} set={(v) => set((p) => ({ ...p, density: v }))} u="cel/mm²" mx={5000} s={10} /></div>
       </div>
       <div style={{ marginBottom: 7 }}>
         <div style={S.cLbl}>Área celular</div>
         <div style={S.oRow}>
           {[{ id: "normal", l: "Normal" }, { id: "discreta", l: "Discr. aumentada" }, { id: "aumentada", l: "Aumentada" }].map((o) => (
-            <button key={o.id} onClick={() => set((p) => ({ ...p, area: o.id }))}
-              style={{ ...S.oBtn, ...(data.area === o.id ? S.oBtnA : {}) }}>{o.l}</button>
+            <button key={o.id} onClick={() => set((p) => ({ ...p, area: o.id }))} style={{ ...S.oBtn, ...(data.area === o.id ? S.oBtnA : {}) }}>{o.l}</button>
           ))}
         </div>
       </div>
@@ -558,8 +651,7 @@ function SelEye({ label, opts, val, set }) {
       <div style={S.eyeL}>{label}</div>
       <div style={{ display: "flex", flexDirection: "column", gap: 3 }}>
         {opts.map((o) => (
-          <button key={o.id} onClick={() => set(o.id)}
-            style={{ ...S.oBtn, textAlign: "left", width: "100%", ...(val === o.id ? S.oBtnA : {}) }}>{o.label}</button>
+          <button key={o.id} onClick={() => set(o.id)} style={{ ...S.oBtn, textAlign: "left", width: "100%", ...(val === o.id ? S.oBtnA : {}) }}>{o.label}</button>
         ))}
       </div>
     </div>
@@ -567,30 +659,23 @@ function SelEye({ label, opts, val, set }) {
 }
 
 function StereoEye({ label, data, set }) {
-  const EXC_VALS = ["0.1","0.2","0.3","0.4","0.5","0.6","0.7","0.8","0.9","1.0"];
+  const EXC = ["0.1","0.2","0.3","0.4","0.5","0.6","0.7","0.8","0.9","1.0"];
   return (
     <div style={S.eyeP}>
       <div style={S.eyeL}>{label}</div>
       <div style={{ marginBottom: 7 }}>
         <div style={S.cLbl}>Padrão</div>
         <div style={S.oRow}>
-          {STEREO_OPTIONS.map((o) => (
-            <button key={o.id} onClick={() => set((p) => ({ ...p, tipo: o.id }))}
-              style={{ ...S.oBtn, ...(data.tipo === o.id ? S.oBtnA : {}) }}>{o.label}</button>
-          ))}
+          {STEREO_OPTIONS.map((o) => (<button key={o.id} onClick={() => set((p) => ({ ...p, tipo: o.id }))} style={{ ...S.oBtn, ...(data.tipo === o.id ? S.oBtnA : {}) }}>{o.label}</button>))}
         </div>
       </div>
       {(data.tipo === "normal" || data.tipo === "aumentada") && (
         <div style={{ marginBottom: 7 }}>
           <div style={S.cLbl}>Escavação (H × V)</div>
           <div style={{ display: "flex", gap: 6, alignItems: "center" }}>
-            <select value={data.excH} onChange={(e) => set((p) => ({ ...p, excH: e.target.value }))} style={S.sel}>
-              {EXC_VALS.map((v) => <option key={v}>{v}</option>)}
-            </select>
+            <select value={data.excH} onChange={(e) => set((p) => ({ ...p, excH: e.target.value }))} style={S.sel}>{EXC.map((v) => <option key={v}>{v}</option>)}</select>
             <span style={{ color: "#94a3b8", fontWeight: 700, fontSize: 13 }}>×</span>
-            <select value={data.excV} onChange={(e) => set((p) => ({ ...p, excV: e.target.value }))} style={S.sel}>
-              {EXC_VALS.map((v) => <option key={v}>{v}</option>)}
-            </select>
+            <select value={data.excV} onChange={(e) => set((p) => ({ ...p, excV: e.target.value }))} style={S.sel}>{EXC.map((v) => <option key={v}>{v}</option>)}</select>
           </div>
         </div>
       )}
@@ -605,19 +690,91 @@ function LacEye({ label, data, set }) {
       <div style={S.eyeL}>{label}</div>
       <div style={{ marginBottom: 7 }}>
         <div style={S.cLbl}>Schirmer <Bdg c={sc === "normal" ? "g" : sc === "reduzido" ? "y" : "r"} t={sc === "normal" ? "Normal" : sc === "reduzido" ? "Reduzido" : "Muito reduzido"} /></div>
-        <div style={S.sRow}>
-          <input type="range" min={0} max={35} value={data.schirmer} onChange={(e) => set((p) => ({ ...p, schirmer: +e.target.value }))} />
-          <NI v={data.schirmer} set={(v) => set((p) => ({ ...p, schirmer: v }))} u="mm" mx={50} />
-        </div>
+        <div style={S.sRow}><input type="range" min={0} max={35} value={data.schirmer} onChange={(e) => set((p) => ({ ...p, schirmer: +e.target.value }))} /><NI v={data.schirmer} set={(v) => set((p) => ({ ...p, schirmer: v }))} u="mm" mx={50} /></div>
       </div>
       <div>
         <div style={S.cLbl}>Lisamina Verde</div>
         <div style={{ display: "flex", flexDirection: "column", gap: 3 }}>
-          {LISAMINA_OPTIONS.map((o) => (
-            <button key={o.id} onClick={() => set((p) => ({ ...p, lisamina: o.id }))}
-              style={{ ...S.oBtn, textAlign: "left", width: "100%", ...(data.lisamina === o.id ? S.oBtnA : {}) }}>{o.label}</button>
-          ))}
+          {LISAMINA_OPTIONS.map((o) => (<button key={o.id} onClick={() => set((p) => ({ ...p, lisamina: o.id }))} style={{ ...S.oBtn, textAlign: "left", width: "100%", ...(data.lisamina === o.id ? S.oBtnA : {}) }}>{o.label}</button>))}
         </div>
+      </div>
+    </div>
+  );
+}
+
+function OctMacEye({ label, data, set }) {
+  const showGrau = ["edema", "membrana"].includes(data.tipo);
+  return (
+    <div style={S.eyeP}>
+      <div style={S.eyeL}>{label}</div>
+      <div style={{ marginBottom: 7 }}>
+        <div style={S.cLbl}>Padrão</div>
+        <div style={{ display: "flex", flexDirection: "column", gap: 3 }}>
+          {OCTMAC_OPTIONS.map((o) => (<button key={o.id} onClick={() => set((p) => ({ ...p, tipo: o.id }))} style={{ ...S.oBtn, textAlign: "left", width: "100%", ...(data.tipo === o.id ? S.oBtnA : {}) }}>{o.label}</button>))}
+        </div>
+      </div>
+      {showGrau && (
+        <div style={{ marginBottom: 7 }}>
+          <div style={S.cLbl}>Intensidade</div>
+          <div style={S.oRow}>
+            {OCTMAC_GRAU.map((o) => (<button key={o.id} onClick={() => set((p) => ({ ...p, grau: o.id }))} style={{ ...S.oBtn, ...(data.grau === o.id ? S.oBtnA : {}) }}>{o.label}</button>))}
+          </div>
+        </div>
+      )}
+    </div>
+  );
+}
+
+function OctNoEye({ label, data, set }) {
+  const showSetores = ["suspeita", "focal"].includes(data.tipo);
+  const toggleSetor = (sid) => {
+    set((p) => {
+      const s = p.setores.includes(sid) ? p.setores.filter((x) => x !== sid) : [...p.setores, sid];
+      return { ...p, setores: s };
+    });
+  };
+  return (
+    <div style={S.eyeP}>
+      <div style={S.eyeL}>{label}</div>
+      <div style={{ marginBottom: 7 }}>
+        <div style={S.cLbl}>Padrão</div>
+        <div style={{ display: "flex", flexDirection: "column", gap: 3 }}>
+          {OCTNO_OPTIONS.map((o) => (<button key={o.id} onClick={() => set((p) => ({ ...p, tipo: o.id, setores: [] }))} style={{ ...S.oBtn, textAlign: "left", width: "100%", ...(data.tipo === o.id ? S.oBtnA : {}) }}>{o.label}</button>))}
+        </div>
+      </div>
+      {showSetores && (
+        <div style={{ marginBottom: 7 }}>
+          <div style={S.cLbl}>Setores (opcional)</div>
+          <div style={S.oRow}>
+            {OCTNO_SETORES.map((o) => (<button key={o.id} onClick={() => toggleSetor(o.id)} style={{ ...S.oBtn, ...(data.setores.includes(o.id) ? S.oBtnA : {}) }}>{o.label}</button>))}
+          </div>
+        </div>
+      )}
+    </div>
+  );
+}
+
+function PaquiEye({ label, data, set }) {
+  const pc = classifyPaqui(data.valor);
+  const QUICK = [480, 500, 520, 540, 560, 580, 600];
+  return (
+    <div style={S.eyeP}>
+      <div style={S.eyeL}>{label}</div>
+      <div style={{ marginBottom: 7 }}>
+        <div style={S.cLbl}>Espessura (µm) {data.interp && <Bdg c={pc === "muito_fina" ? "r" : pc === "fina" ? "y" : pc === "habitual" ? "g" : "o"} t={pc === "muito_fina" ? "Muito fina" : pc === "fina" ? "Fina" : pc === "habitual" ? "Habitual" : "Espessa"} />}</div>
+        <div style={S.sRow}>
+          <input type="range" min={400} max={650} value={data.valor} onChange={(e) => set((p) => ({ ...p, valor: +e.target.value }))} />
+          <NI v={data.valor} set={(v) => set((p) => ({ ...p, valor: v }))} u="µm" mx={800} />
+        </div>
+        <div style={{ ...S.oRow, marginTop: 5 }}>
+          {QUICK.map((v) => (<button key={v} onClick={() => set((p) => ({ ...p, valor: v }))} style={{ ...S.oBtn, fontSize: 10, padding: "2px 7px", ...(data.valor === v ? S.oBtnA : {}) }}>{v}</button>))}
+        </div>
+      </div>
+      <div style={{ marginBottom: 4 }}>
+        <label style={{ display: "flex", alignItems: "center", gap: 6, cursor: "pointer", fontSize: 11, color: "#475569", fontWeight: 500 }}>
+          <input type="checkbox" checked={data.interp} onChange={(e) => set((p) => ({ ...p, interp: e.target.checked }))} style={{ accentColor: "#0f172a" }} />
+          Interpretação automática
+        </label>
       </div>
     </div>
   );
@@ -632,8 +789,7 @@ function Bdg({ c, t }) {
 function NI({ v, set, u, mx = 9999, s = 1 }) {
   return (
     <div style={S.niWrap}>
-      <input type="number" min={0} max={mx} step={s} value={v}
-        onChange={(e) => set(Math.max(0, Math.min(mx, parseInt(e.target.value) || 0)))} style={S.ni} />
+      <input type="number" min={0} max={mx} step={s} value={v} onChange={(e) => set(Math.max(0, Math.min(mx, parseInt(e.target.value) || 0)))} style={S.ni} />
       <span style={S.niU}>{u}</span>
     </div>
   );
