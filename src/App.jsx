@@ -1,4 +1,4 @@
-import { useState, useCallback, useEffect } from "react";
+import { useState, useCallback, useEffect, useRef } from "react";
 
 const pick = (arr) => arr[Math.floor(Math.random() * arr.length)];
 
@@ -331,13 +331,18 @@ export default function LaudoOftalmologico() {
   const [paquiOE, setPaquiOE] = useState({ ...DEFAULT_PAQUI });
 
   const [laudoText, setLaudoText] = useState("");
+  const [laudoHtml, setLaudoHtml] = useState("");
   const [copied, setCopied] = useState(false);
+  const editorRef = useRef(null);
 
   const generateReport = useCallback(() => {
-    const parts = [];
+    const lines = []; // {type: 'title'|'text'|'blank', content}
+    const T = (s) => lines.push({ type: "title", content: s });
+    const L = (s) => lines.push({ type: "text", content: s });
+    const B = () => lines.push({ type: "blank" });
 
     if (exams.retina) {
-      parts.push("MAPEAMENTO DE RETINA\n");
+      T("MAPEAMENTO DE RETINA");
       const build = (data, label) => {
         const items = Object.entries(RETINA_CATEGORIES).map(([key, cat]) => {
           const opt = cat.options.find((o) => o.id === data[key]);
@@ -346,86 +351,98 @@ export default function LaudoOftalmologico() {
         const first = items[0].charAt(0).toUpperCase() + items[0].slice(1);
         return `${label}: ${first}, ${items.slice(1).join(", ")}.`;
       };
-      parts.push(build(retinaOD, "Olho Direito"));
-      parts.push(build(retinaOE, "Olho Esquerdo"));
+      L(build(retinaOD, "Olho Direito"));
+      L(build(retinaOE, "Olho Esquerdo"));
     }
 
     if (exams.micro) {
-      if (parts.length) parts.push("");
-      parts.push("MICROSCOPIA ESPECULAR\n");
+      if (lines.length) B();
+      T("MICROSCOPIA ESPECULAR");
       const build = (d, l) => `${l}: ${hexText(d.hex)} ${densityText(d.density)} ${areaText(d.area)}`;
-      parts.push(build(microOD, "Olho Direito"));
-      parts.push(build(microOE, "Olho Esquerdo"));
+      L(build(microOD, "Olho Direito"));
+      L(build(microOE, "Olho Esquerdo"));
     }
 
     if (exams.topo) {
-      if (parts.length) parts.push("");
-      parts.push("TOPOGRAFIA DE CÓRNEA\n");
-      parts.push(`Técnica: ${TOPO_TECNICA()}\n`);
-      parts.push(`Olho Direito: ${topoText(topoOD)}`);
-      parts.push(`Olho Esquerdo: ${topoText(topoOE)}`);
+      if (lines.length) B();
+      T("TOPOGRAFIA DE CÓRNEA");
+      L(`Técnica: ${TOPO_TECNICA()}`);
+      L("");
+      L(`Olho Direito: ${topoText(topoOD)}`);
+      L(`Olho Esquerdo: ${topoText(topoOE)}`);
     }
 
     if (exams.campo) {
-      if (parts.length) parts.push("");
-      parts.push("CAMPIMETRIA COMPUTADORIZADA\n");
-      parts.push(`Olho Direito: ${campoText(campoOD)}`);
-      parts.push(`Olho Esquerdo: ${campoText(campoOE)}`);
+      if (lines.length) B();
+      T("CAMPIMETRIA COMPUTADORIZADA");
+      L(`Olho Direito: ${campoText(campoOD)}`);
+      L(`Olho Esquerdo: ${campoText(campoOE)}`);
     }
 
     if (exams.stereo) {
-      if (parts.length) parts.push("");
-      parts.push("ESTEREOFOTO DE PAPILA\n");
-      parts.push(`Olho Direito: ${stereoText(stereoOD.tipo, stereoOD.excH, stereoOD.excV)}`);
-      parts.push(`Olho Esquerdo: ${stereoText(stereoOE.tipo, stereoOE.excH, stereoOE.excV)}`);
+      if (lines.length) B();
+      T("ESTEREOFOTO DE PAPILA");
+      L(`Olho Direito: ${stereoText(stereoOD.tipo, stereoOD.excH, stereoOD.excV)}`);
+      L(`Olho Esquerdo: ${stereoText(stereoOE.tipo, stereoOE.excH, stereoOE.excV)}`);
     }
 
     if (exams.lacrimal) {
-      if (parts.length) parts.push("");
-      parts.push("AVALIAÇÃO DO FILME LACRIMAL\n");
+      if (lines.length) B();
+      T("AVALIAÇÃO DO FILME LACRIMAL");
       const sOD = lacOD.schirmer, sOE = lacOE.schirmer;
       const cOD = classifySchirmer(sOD), cOE = classifySchirmer(sOE);
-      let schTxt = "Teste de Schirmer:\n";
+      L("Teste de Schirmer:");
       if (cOD === "normal" && cOE === "normal") {
-        schTxt += pick([`Olho Direito: ${sOD} mm; Olho Esquerdo: ${sOE} mm — valores dentro de faixa preservada para produção lacrimal.`, `Olho Direito: ${sOD} mm; Olho Esquerdo: ${sOE} mm — produção lacrimal dentro dos parâmetros normais.`, `Olho Direito: ${sOD} mm; Olho Esquerdo: ${sOE} mm — valores compatíveis com produção lacrimal adequada.`]);
+        L(pick([`Olho Direito: ${sOD} mm; Olho Esquerdo: ${sOE} mm — valores dentro de faixa preservada para produção lacrimal.`, `Olho Direito: ${sOD} mm; Olho Esquerdo: ${sOE} mm — produção lacrimal dentro dos parâmetros normais.`, `Olho Direito: ${sOD} mm; Olho Esquerdo: ${sOE} mm — valores compatíveis com produção lacrimal adequada.`]));
       } else if (cOD === "muito_reduzido" || cOE === "muito_reduzido") {
-        schTxt += pick([`Teste de Schirmer evidenciando acentuada redução da produção lacrimal, com medida de ${sOD} mm no olho direito e ${sOE} mm no olho esquerdo.`, `Acentuada redução da produção lacrimal ao teste de Schirmer: ${sOD} mm (OD) e ${sOE} mm (OE).`]);
+        L(pick([`Teste de Schirmer evidenciando acentuada redução da produção lacrimal, com medida de ${sOD} mm no olho direito e ${sOE} mm no olho esquerdo.`, `Acentuada redução da produção lacrimal ao teste de Schirmer: ${sOD} mm (OD) e ${sOE} mm (OE).`]));
       } else {
-        schTxt += pick([`Teste de Schirmer evidenciando redução da produção lacrimal, com medida de ${sOD} mm no olho direito e ${sOE} mm no olho esquerdo.`, `Redução da produção lacrimal ao teste de Schirmer: ${sOD} mm (OD) e ${sOE} mm (OE).`]);
+        L(pick([`Teste de Schirmer evidenciando redução da produção lacrimal, com medida de ${sOD} mm no olho direito e ${sOE} mm no olho esquerdo.`, `Redução da produção lacrimal ao teste de Schirmer: ${sOD} mm (OD) e ${sOE} mm (OE).`]));
       }
-      parts.push(schTxt);
-      parts.push("\nTeste da Lisamina Verde:");
-      parts.push(`Olho Direito: ${lisaminaText(lacOD.lisamina)}`);
-      parts.push(`Olho Esquerdo: ${lisaminaText(lacOE.lisamina)}`);
+      L("");
+      L("Teste da Lisamina Verde:");
+      L(`Olho Direito: ${lisaminaText(lacOD.lisamina)}`);
+      L(`Olho Esquerdo: ${lisaminaText(lacOE.lisamina)}`);
     }
 
     if (exams.octmac) {
-      if (parts.length) parts.push("");
-      parts.push("TOMOGRAFIA DE COERÊNCIA ÓPTICA DE MÁCULA\n");
-      parts.push(`Olho Direito: ${octMacText(octmacOD.tipo, octmacOD.grau)}`);
-      parts.push(`Olho Esquerdo: ${octMacText(octmacOE.tipo, octmacOE.grau)}`);
+      if (lines.length) B();
+      T("TOMOGRAFIA DE COERÊNCIA ÓPTICA DE MÁCULA");
+      L(`Olho Direito: ${octMacText(octmacOD.tipo, octmacOD.grau)}`);
+      L(`Olho Esquerdo: ${octMacText(octmacOE.tipo, octmacOE.grau)}`);
     }
 
     if (exams.octno) {
-      if (parts.length) parts.push("");
-      parts.push("TOMOGRAFIA DE COERÊNCIA ÓPTICA DE NERVO ÓPTICO\n");
-      parts.push(`Olho Direito: ${octNoText(octnoOD.tipo, octnoOD.setores)}`);
-      parts.push(`Olho Esquerdo: ${octNoText(octnoOE.tipo, octnoOE.setores)}`);
+      if (lines.length) B();
+      T("TOMOGRAFIA DE COERÊNCIA ÓPTICA DE NERVO ÓPTICO");
+      L(`Olho Direito: ${octNoText(octnoOD.tipo, octnoOD.setores)}`);
+      L(`Olho Esquerdo: ${octNoText(octnoOE.tipo, octnoOE.setores)}`);
     }
 
     if (exams.paqui) {
-      if (parts.length) parts.push("");
-      parts.push("PAQUIMETRIA ULTRASSÔNICA\n");
-      parts.push(`Olho Direito: ${paquiText(paquiOD.valor, paquiOD.interp)}`);
-      parts.push(`Olho Esquerdo: ${paquiText(paquiOE.valor, paquiOE.interp)}`);
+      if (lines.length) B();
+      T("PAQUIMETRIA ULTRASSÔNICA");
+      L(`Olho Direito: ${paquiText(paquiOD.valor, paquiOD.interp)}`);
+      L(`Olho Esquerdo: ${paquiText(paquiOE.valor, paquiOE.interp)}`);
     }
 
-    setLaudoText(parts.join("\n"));
+    // Build plain text
+    const plain = lines.map((l) => l.type === "blank" ? "" : l.content).join("\n");
+    // Build HTML
+    const html = lines.map((l) => {
+      if (l.type === "blank") return "<br>";
+      if (l.type === "title") return `<b><u>${l.content}</u></b>`;
+      if (!l.content) return "<br>";
+      return l.content;
+    }).join("<br>");
+
+    setLaudoText(plain);
+    setLaudoHtml(html);
   }, [exams, retinaOD, retinaOE, microOD, microOE, topoOD, topoOE, campoOD, campoOE, stereoOD, stereoOE, lacOD, lacOE, octmacOD, octmacOE, octnoOD, octnoOE, paquiOD, paquiOE]);
 
   useEffect(() => {
     if (Object.values(exams).some(Boolean)) generateReport();
-    else setLaudoText("");
+    else { setLaudoText(""); setLaudoHtml(""); }
   }, [exams, retinaOD, retinaOE, microOD, microOE, topoOD, topoOE, campoOD, campoOE, stereoOD, stereoOE, lacOD, lacOE, octmacOD, octmacOE, octnoOD, octnoOE, paquiOD, paquiOE, generateReport]);
 
   const clearAll = () => {
@@ -439,11 +456,21 @@ export default function LaudoOftalmologico() {
     setOctmacOD({ ...DEFAULT_OCTMAC }); setOctmacOE({ ...DEFAULT_OCTMAC });
     setOctnoOD({ ...DEFAULT_OCTNO }); setOctnoOE({ ...DEFAULT_OCTNO });
     setPaquiOD({ ...DEFAULT_PAQUI }); setPaquiOE({ ...DEFAULT_PAQUI });
-    setLaudoText(""); setCopied(false);
+    setLaudoText(""); setLaudoHtml(""); setCopied(false);
   };
 
   const copyText = async () => {
-    try { await navigator.clipboard.writeText(laudoText); setCopied(true); setTimeout(() => setCopied(false), 2000); } catch {}
+    try {
+      const htmlContent = editorRef.current ? editorRef.current.innerHTML : laudoHtml;
+      const blob = new Blob([htmlContent], { type: "text/html" });
+      const blobPlain = new Blob([laudoText], { type: "text/plain" });
+      await navigator.clipboard.write([
+        new ClipboardItem({ "text/html": blob, "text/plain": blobPlain })
+      ]);
+      setCopied(true); setTimeout(() => setCopied(false), 2000);
+    } catch {
+      try { await navigator.clipboard.writeText(laudoText); setCopied(true); setTimeout(() => setCopied(false), 2000); } catch {}
+    }
   };
 
   const anyActive = Object.values(exams).some(Boolean);
@@ -559,7 +586,7 @@ export default function LaudoOftalmologico() {
       ]}><div style={S.eyeRow}><PaquiEye label="OD" data={paquiOD} set={setPaquiOD} /><div style={S.divider} /><PaquiEye label="OE" data={paquiOE} set={setPaquiOE} /></div></EBlock>}
 
       {/* OUTPUT */}
-      {laudoText && (
+      {laudoHtml && (
         <div style={S.outBlock}>
           <div style={S.outHead}>
             <h2 style={{ fontSize: 15, fontWeight: 700, color: "#0f172a" }}>Laudo Gerado</h2>
@@ -570,8 +597,13 @@ export default function LaudoOftalmologico() {
               </button>
             </div>
           </div>
-          <textarea style={S.ta} value={laudoText} onChange={(e) => setLaudoText(e.target.value)}
-            rows={Math.max(8, laudoText.split("\n").length + 2)} />
+          <div
+            ref={editorRef}
+            contentEditable
+            suppressContentEditableWarning
+            dangerouslySetInnerHTML={{ __html: laudoHtml }}
+            style={S.ta}
+          />
         </div>
       )}
 
@@ -825,5 +857,5 @@ const S = {
   outHead: { display: "flex", alignItems: "center", justifyContent: "space-between", marginBottom: 10, flexWrap: "wrap", gap: 8 },
   varBtn: { padding: "5px 11px", borderRadius: 6, border: "1px solid #e2e8f0", background: "#f8fafc", color: "#475569", fontSize: 11, fontWeight: 500, cursor: "pointer", fontFamily: "inherit" },
   cpBtn: { padding: "5px 13px", borderRadius: 6, border: "none", background: "#0f172a", color: "#fff", fontSize: 11, fontWeight: 600, cursor: "pointer", fontFamily: "inherit", transition: "all .2s" },
-  ta: { width: "100%", border: "1px solid #e2e8f0", borderRadius: 7, padding: 10, fontSize: 13, fontFamily: "'DM Sans',sans-serif", color: "#1e293b", lineHeight: 1.6, resize: "vertical", outline: "none", background: "#fafafa" },
+  ta: { width: "100%", border: "1px solid #e2e8f0", borderRadius: 7, padding: 10, fontSize: 13, fontFamily: "'DM Sans',sans-serif", color: "#1e293b", lineHeight: 1.6, outline: "none", background: "#fafafa", minHeight: 120, whiteSpace: "pre-wrap", wordWrap: "break-word", overflowY: "auto" },
 };
