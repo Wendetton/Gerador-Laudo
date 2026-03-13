@@ -430,7 +430,7 @@ export default function LaudoOftalmologico() {
     const plain = lines.map((l) => l.type === "blank" ? "" : l.content).join("\n");
     // Build HTML
     const html = lines.map((l) => {
-      if (l.type === "blank") return "<br>";
+      if (l.type === "blank") return "";
       if (l.type === "title") return `<b><u>${l.content}</u></b>`;
       if (!l.content) return "<br>";
       return l.content;
