@@ -1,4 +1,5 @@
 import { useState, useCallback, useEffect, useRef } from "react";
+import { jsPDF } from "jspdf";
 
 const pick = (arr) => arr[Math.floor(Math.random() * arr.length)];
 
@@ -390,6 +391,7 @@ export default function LaudoOftalmologico() {
   const [bioOD, setBioOD] = useState({ ...DEFAULT_BIO });
   const [bioOE, setBioOE] = useState({ ...DEFAULT_BIO });
 
+  const [paciente, setPaciente] = useState("");
   const [laudoText, setLaudoText] = useState("");
   const [laudoHtml, setLaudoHtml] = useState("");
   const [copied, setCopied] = useState(false);
@@ -551,7 +553,7 @@ export default function LaudoOftalmologico() {
     setRetinoOD({ ...DEFAULT_RETINO }); setRetinoOE({ ...DEFAULT_RETINO });
     setTonoOD({ ...DEFAULT_TONO }); setTonoOE({ ...DEFAULT_TONO });
     setBioOD({ ...DEFAULT_BIO }); setBioOE({ ...DEFAULT_BIO });
-    setLaudoText(""); setLaudoHtml(""); setCopied(false);
+    setPaciente(""); setLaudoText(""); setLaudoHtml(""); setCopied(false);
   };
 
   const copyText = async () => {
@@ -566,6 +568,84 @@ export default function LaudoOftalmologico() {
     } catch {
       try { await navigator.clipboard.writeText(laudoText); setCopied(true); setTimeout(() => setCopied(false), 2000); } catch {}
     }
+  };
+
+  const gerarPDF = () => {
+    const doc = new jsPDF({ unit: "mm", format: "a4" });
+    const pageW = doc.internal.pageSize.getWidth();
+    const pageH = doc.internal.pageSize.getHeight();
+    const marginLeft = 20;
+    const marginRight = 20;
+    const marginTop = 20;
+    const marginBottom = 20;
+    const usableW = pageW - marginLeft - marginRight;
+    let y = marginTop;
+
+    const checkPage = (needed) => {
+      if (y + needed > pageH - marginBottom) {
+        doc.addPage();
+        y = marginTop;
+      }
+    };
+
+    // Patient name
+    if (paciente.trim()) {
+      doc.setFont("helvetica", "bold");
+      doc.setFontSize(10);
+      doc.text(`Paciente: ${paciente.trim()}`, marginLeft, y);
+      y += 7;
+      doc.setDrawColor(200);
+      doc.line(marginLeft, y, pageW - marginRight, y);
+      y += 7;
+    }
+
+    // Get text from editor (preserves user edits)
+    const editorEl = editorRef.current;
+    let content = laudoText;
+    if (editorEl) {
+      content = editorEl.innerText || editorEl.textContent || laudoText;
+    }
+
+    const lines = content.split("\n");
+
+    for (const line of lines) {
+      if (line.trim() === "") {
+        y += 4;
+        continue;
+      }
+
+      // Detect title lines (all uppercase, typically section headers)
+      const isTitle = /^[A-ZÁÉÍÓÚÀÂÊÔÃÕÇ\s]+$/.test(line.trim()) && line.trim().length > 3;
+
+      if (isTitle) {
+        doc.setFont("helvetica", "bold");
+        doc.setFontSize(10);
+        const wrapped = doc.splitTextToSize(line, usableW);
+        checkPage(wrapped.length * 4.5 + 2);
+        // Underline title
+        for (let i = 0; i < wrapped.length; i++) {
+          doc.text(wrapped[i], marginLeft, y);
+          const tw = doc.getTextWidth(wrapped[i]);
+          doc.setDrawColor(0);
+          doc.setLineWidth(0.3);
+          doc.line(marginLeft, y + 0.5, marginLeft + tw, y + 0.5);
+          y += 4.5;
+        }
+        y += 1;
+      } else {
+        doc.setFont("helvetica", "normal");
+        doc.setFontSize(10);
+        const wrapped = doc.splitTextToSize(line, usableW);
+        checkPage(wrapped.length * 4.5);
+        for (let i = 0; i < wrapped.length; i++) {
+          doc.text(wrapped[i], marginLeft, y);
+          y += 4.5;
+        }
+      }
+    }
+
+    const fileName = paciente.trim() ? `Laudo - ${paciente.trim()}.pdf` : "Laudo Oftalmológico.pdf";
+    doc.save(fileName);
   };
 
   const anyActive = Object.values(exams).some(Boolean);
@@ -716,6 +796,16 @@ export default function LaudoOftalmologico() {
               </button>
             </div>
           </div>
+          <div style={{ marginBottom: 10 }}>
+            <label style={{ fontSize: 11, fontWeight: 600, color: "#64748b", textTransform: "uppercase", letterSpacing: ".4px" }}>Paciente</label>
+            <input
+              type="text"
+              value={paciente}
+              onChange={(e) => setPaciente(e.target.value)}
+              placeholder="Nome do paciente"
+              style={{ width: "100%", marginTop: 4, padding: "8px 10px", borderRadius: 7, border: "1.5px solid #e2e8f0", fontSize: 13, fontFamily: "'DM Sans',sans-serif", color: "#0f172a", outline: "none", background: "#fafafa" }}
+            />
+          </div>
           <div
             ref={editorRef}
             contentEditable
@@ -723,6 +813,10 @@ export default function LaudoOftalmologico() {
             dangerouslySetInnerHTML={{ __html: laudoHtml }}
             style={S.ta}
           />
+          <button onClick={gerarPDF} style={{ marginTop: 10, width: "100%", padding: "10px 0", borderRadius: 8, border: "none", background: "#0f172a", color: "#fff", fontSize: 13, fontWeight: 700, cursor: "pointer", fontFamily: "inherit", display: "flex", alignItems: "center", justifyContent: "center", gap: 8 }}>
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#fff" strokeWidth="2" strokeLinecap="round"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><path d="M14 2v6h6"/><path d="M12 18v-6"/><path d="M9 15l3 3 3-3"/></svg>
+            Gerar Laudo em PDF
+          </button>
         </div>
       )}
 
