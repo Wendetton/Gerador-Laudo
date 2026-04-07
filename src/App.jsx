@@ -576,8 +576,8 @@ export default function LaudoOftalmologico() {
     const pageH = doc.internal.pageSize.getHeight();
     const marginLeft = 20;
     const marginRight = 20;
-    const marginTop = 20;
-    const marginBottom = 20;
+    const marginTop = 40;
+    const marginBottom = 40;
     const usableW = pageW - marginLeft - marginRight;
     let y = marginTop;
 
