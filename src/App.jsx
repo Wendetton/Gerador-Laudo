@@ -644,8 +644,15 @@ export default function LaudoOftalmologico() {
       }
     }
 
-    const fileName = paciente.trim() ? `Laudo - ${paciente.trim()}.pdf` : "Laudo Oftalmológico.pdf";
-    doc.save(fileName);
+    const pdfBlob = doc.output("blob");
+    const url = URL.createObjectURL(pdfBlob);
+    const printWindow = window.open(url);
+    if (printWindow) {
+      printWindow.addEventListener("load", () => {
+        printWindow.print();
+        URL.revokeObjectURL(url);
+      });
+    }
   };
 
   const anyActive = Object.values(exams).some(Boolean);
