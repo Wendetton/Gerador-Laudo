@@ -9,14 +9,17 @@ const RETINA_CATEGORIES = {
     options: [
       { id: "claros", label: "Meios claros", text: () => pick(["Meios claros", "Meios ópticos transparentes", "Meios claros e transparentes"]) },
       { id: "dvp", label: "Meios claros c/ DVP", text: () => pick(["Meios claros com DVP", "Meios transparentes, evidenciando descolamento do vítreo posterior", "Meios claros com presença de DVP"]) },
+      { id: "turvos", label: "Meios turvos", text: () => pick(["Meios turvos", "Meios ópticos turvos", "Meios com opacidade"]) },
     ],
     default: "claros",
   },
   papila: {
     label: "Papila",
+    hasExcavation: true,
     options: [
-      { id: "fisiologica", label: "Escavação fisiológica", text: () => pick(["papila com escavação fisiológica", "disco óptico com escavação dentro dos limites fisiológicos", "papila de aspecto normal, com escavação fisiológica"]) },
-      { id: "atrofia", label: "Atrofia", text: () => pick(["papila com atrofia", "disco óptico com sinais de atrofia", "papila com alteração atrófica"]) },
+      { id: "fisiologica", label: "Escavação fisiológica", showExc: true, text: (exc) => exc ? pick([`papila com escavação fisiológica (${exc})`, `disco óptico com escavação de ${exc}, dentro dos limites fisiológicos`, `papila de aspecto normal, com escavação fisiológica de ${exc}`]) : pick(["papila com escavação fisiológica", "disco óptico com escavação dentro dos limites fisiológicos", "papila de aspecto normal, com escavação fisiológica"]) },
+      { id: "aumentada", label: "Escavação aumentada", showExc: true, text: (exc) => exc ? pick([`papila com escavação aumentada (${exc})`, `disco óptico com aumento da escavação (${exc})`, `papila com escavação ampliada (${exc})`]) : pick(["papila com escavação aumentada", "disco óptico com aumento da escavação", "papila com escavação ampliada"]) },
+      { id: "atrofia", label: "Atrofia", showExc: false, text: () => pick(["papila com atrofia", "disco óptico com sinais de atrofia", "papila com alteração atrófica"]) },
     ],
     default: "fisiologica",
   },
@@ -47,7 +50,7 @@ const RETINA_CATEGORIES = {
     default: "aplicada",
   },
 };
-const DEFAULT_RETINA = Object.fromEntries(Object.entries(RETINA_CATEGORIES).map(([k, v]) => [k, v.default]));
+const DEFAULT_RETINA = { ...Object.fromEntries(Object.entries(RETINA_CATEGORIES).map(([k, v]) => [k, v.default])), excH: "0.3", excV: "0.3" };
 
 // ===================== MICROSCOPIA ESPECULAR =====================
 function classifyHex(v) { return v >= 35 ? "normal" : v >= 25 ? "limítrofe" : "reduzida"; }
@@ -403,7 +406,12 @@ export default function LaudoOftalmologico() {
       const build = (data, label) => {
         const items = Object.entries(RETINA_CATEGORIES).map(([key, cat]) => {
           const opt = cat.options.find((o) => o.id === data[key]);
-          return opt ? opt.text() : "";
+          if (!opt) return "";
+          if (key === "papila" && opt.showExc) {
+            const exc = `${data.excH} x ${data.excV}`;
+            return opt.text(exc);
+          }
+          return opt.text();
         });
         const first = items[0].charAt(0).toUpperCase() + items[0].slice(1);
         return `${label}: ${first}, ${items.slice(1).join(", ")}.`;
@@ -745,6 +753,8 @@ function EBlock({ t, c, acts, children }) {
 }
 
 function RetinaEye({ label, data, set }) {
+  const EXC = ["0.1","0.2","0.3","0.4","0.5","0.6","0.7","0.8","0.9","1.0"];
+  const papilaOpt = RETINA_CATEGORIES.papila.options.find(o => o.id === data.papila);
   return (
     <div style={S.eyeP}>
       <div style={S.eyeL}>{label}</div>
@@ -757,6 +767,14 @@ function RetinaEye({ label, data, set }) {
                 style={{ ...S.oBtn, ...(data[key] === o.id ? S.oBtnA : {}) }}>{o.label}</button>
             ))}
           </div>
+          {key === "papila" && papilaOpt && papilaOpt.showExc && (
+            <div style={{ display: "flex", gap: 6, alignItems: "center", marginTop: 5 }}>
+              <span style={{ fontSize: 10, color: "#64748b", fontWeight: 500 }}>Escavação</span>
+              <select value={data.excH} onChange={(e) => set((p) => ({ ...p, excH: e.target.value }))} style={S.sel}>{EXC.map((v) => <option key={v}>{v}</option>)}</select>
+              <span style={{ color: "#94a3b8", fontWeight: 700, fontSize: 13 }}>×</span>
+              <select value={data.excV} onChange={(e) => set((p) => ({ ...p, excV: e.target.value }))} style={S.sel}>{EXC.map((v) => <option key={v}>{v}</option>)}</select>
+            </div>
+          )}
         </div>
       ))}
     </div>
