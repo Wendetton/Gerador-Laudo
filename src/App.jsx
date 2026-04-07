@@ -293,6 +293,54 @@ function paquiText(val, interp) {
 }
 const DEFAULT_PAQUI = { valor: 540, interp: false };
 
+// ===================== RETINOGRAFIA =====================
+const RETINO_CATEGORIES = {
+  papila: {
+    label: "Papila",
+    options: [
+      { id: "fisiologica", label: "Fisiológica", text: () => pick(["papila com escavação fisiológica", "disco óptico com escavação fisiológica", "papila de aspecto normal"]) },
+      { id: "atrofia", label: "Atrofia", text: () => pick(["papila com sinais de atrofia", "disco óptico com atrofia", "papila com alteração atrófica"]) },
+      { id: "aumentada", label: "Escav. aumentada", text: () => pick(["papila com escavação aumentada", "disco óptico com aumento da escavação", "papila com escavação ampliada"]) },
+    ],
+    default: "fisiologica",
+  },
+  macula: {
+    label: "Mácula",
+    options: [
+      { id: "livre", label: "Livre", text: () => pick(["mácula livre", "mácula de aspecto normal", "mácula sem alterações"]) },
+      { id: "brilho", label: "↓ Brilho foveal", text: () => pick(["mácula com diminuição do brilho foveal", "mácula com redução do reflexo foveal", "mácula apresentando diminuição do brilho foveal"]) },
+      { id: "atrofia", label: "Atrofia", text: () => pick(["mácula com atrofia", "mácula com alterações atróficas", "mácula apresentando sinais de atrofia"]) },
+      { id: "drusas", label: "Drusas", text: () => pick(["mácula com drusas", "mácula com presença de drusas", "mácula evidenciando drusas"]) },
+    ],
+    default: "livre",
+  },
+  retina: {
+    label: "Retina",
+    options: [
+      { id: "sem_alteracoes", label: "Sem alterações", text: () => pick(["retina sem alterações", "retina de aspecto normal", "retina sem achados significativos"]) },
+      { id: "repr", label: "REPR", text: () => pick(["retina com REPR difusa", "retina apresentando REPR difusa", "retina com remaniamento pigmentar difuso"]) },
+      { id: "cicatrizes", label: "Cicatrizes", text: () => pick(["retina com cicatrizes", "retina apresentando cicatrizes coriorretinianas", "retina com áreas cicatriciais"]) },
+    ],
+    default: "sem_alteracoes",
+  },
+};
+const DEFAULT_RETINO = Object.fromEntries(Object.entries(RETINO_CATEGORIES).map(([k, v]) => [k, v.default]));
+
+// ===================== TONOMETRIA =====================
+const DEFAULT_TONO = { valor: 14 };
+
+// ===================== BIOMETRIA =====================
+const DIOPTRIAS = [];
+for (let d = 10; d <= 35; d += 0.5) DIOPTRIAS.push(d.toFixed(2).replace(".", ","));
+function bioText(axial, dioptria) {
+  return pick([
+    `Biometria ultrassônica evidenciando comprimento axial de ${axial} mm, com indicação de lente intraocular de +${dioptria} dioptrias.`,
+    `Biometria ultrassônica com comprimento axial de ${axial} mm, indicando lente intraocular de +${dioptria} dioptrias.`,
+    `Comprimento axial aferido por biometria ultrassônica: ${axial} mm. Indicação de lente intraocular de +${dioptria} dioptrias.`,
+  ]);
+}
+const DEFAULT_BIO = { axial: 23.5, dioptria: "21,00" };
+
 // ===================== EXAM COLORS =====================
 const EC = {
   retina: { main: "#0369a1", border: "#bae6fd" },
@@ -304,11 +352,14 @@ const EC = {
   octmac: { main: "#059669", border: "#a7f3d0" },
   octno: { main: "#d97706", border: "#fde68a" },
   paqui: { main: "#6366f1", border: "#c7d2fe" },
+  retino: { main: "#dc2626", border: "#fecaca" },
+  tono: { main: "#e11d48", border: "#fda4af" },
+  bio: { main: "#2563eb", border: "#bfdbfe" },
 };
 
 // ===================== MAIN COMPONENT =====================
 export default function LaudoOftalmologico() {
-  const [exams, setExams] = useState({ retina: false, micro: false, topo: false, campo: false, stereo: false, lacrimal: false, octmac: false, octno: false, paqui: false });
+  const [exams, setExams] = useState({ retina: false, micro: false, topo: false, campo: false, stereo: false, lacrimal: false, octmac: false, octno: false, paqui: false, retino: false, tono: false, bio: false });
   const toggle = (k) => setExams((p) => ({ ...p, [k]: !p[k] }));
 
   const [retinaOD, setRetinaOD] = useState({ ...DEFAULT_RETINA });
@@ -329,6 +380,12 @@ export default function LaudoOftalmologico() {
   const [octnoOE, setOctnoOE] = useState({ ...DEFAULT_OCTNO });
   const [paquiOD, setPaquiOD] = useState({ ...DEFAULT_PAQUI });
   const [paquiOE, setPaquiOE] = useState({ ...DEFAULT_PAQUI });
+  const [retinoOD, setRetinoOD] = useState({ ...DEFAULT_RETINO });
+  const [retinoOE, setRetinoOE] = useState({ ...DEFAULT_RETINO });
+  const [tonoOD, setTonoOD] = useState({ ...DEFAULT_TONO });
+  const [tonoOE, setTonoOE] = useState({ ...DEFAULT_TONO });
+  const [bioOD, setBioOD] = useState({ ...DEFAULT_BIO });
+  const [bioOE, setBioOE] = useState({ ...DEFAULT_BIO });
 
   const [laudoText, setLaudoText] = useState("");
   const [laudoHtml, setLaudoHtml] = useState("");
@@ -424,6 +481,35 @@ export default function LaudoOftalmologico() {
       L(`Olho Esquerdo: ${paquiText(paquiOE.valor, paquiOE.interp)}`);
     }
 
+    if (exams.retino) {
+      if (lines.length) B();
+      T("RETINOGRAFIA");
+      const build = (data, label) => {
+        const items = Object.entries(RETINO_CATEGORIES).map(([key, cat]) => {
+          const opt = cat.options.find((o) => o.id === data[key]);
+          return opt ? opt.text() : "";
+        });
+        const first = items[0].charAt(0).toUpperCase() + items[0].slice(1);
+        return `${label}: ${first}, ${items.slice(1).join(", ")}.`;
+      };
+      L(build(retinoOD, "Olho Direito"));
+      L(build(retinoOE, "Olho Esquerdo"));
+    }
+
+    if (exams.tono) {
+      if (lines.length) B();
+      T("TONOMETRIA");
+      L(`Olho Direito: ${tonoOD.valor} mmHg`);
+      L(`Olho Esquerdo: ${tonoOE.valor} mmHg`);
+    }
+
+    if (exams.bio) {
+      if (lines.length) B();
+      T("BIOMETRIA ULTRASSÔNICA");
+      L(`Olho Direito: ${bioText(bioOD.axial.toFixed(2).replace(".", ","), bioOD.dioptria)}`);
+      L(`Olho Esquerdo: ${bioText(bioOE.axial.toFixed(2).replace(".", ","), bioOE.dioptria)}`);
+    }
+
     // Build plain text
     const plain = lines.map((l) => l.type === "blank" ? "" : l.content).join("\n");
     // Build HTML
@@ -436,15 +522,15 @@ export default function LaudoOftalmologico() {
 
     setLaudoText(plain);
     setLaudoHtml(html);
-  }, [exams, retinaOD, retinaOE, microOD, microOE, topoOD, topoOE, campoOD, campoOE, stereoOD, stereoOE, lacOD, lacOE, octmacOD, octmacOE, octnoOD, octnoOE, paquiOD, paquiOE]);
+  }, [exams, retinaOD, retinaOE, microOD, microOE, topoOD, topoOE, campoOD, campoOE, stereoOD, stereoOE, lacOD, lacOE, octmacOD, octmacOE, octnoOD, octnoOE, paquiOD, paquiOE, retinoOD, retinoOE, tonoOD, tonoOE, bioOD, bioOE]);
 
   useEffect(() => {
     if (Object.values(exams).some(Boolean)) generateReport();
     else { setLaudoText(""); setLaudoHtml(""); }
-  }, [exams, retinaOD, retinaOE, microOD, microOE, topoOD, topoOE, campoOD, campoOE, stereoOD, stereoOE, lacOD, lacOE, octmacOD, octmacOE, octnoOD, octnoOE, paquiOD, paquiOE, generateReport]);
+  }, [exams, retinaOD, retinaOE, microOD, microOE, topoOD, topoOE, campoOD, campoOE, stereoOD, stereoOE, lacOD, lacOE, octmacOD, octmacOE, octnoOD, octnoOE, paquiOD, paquiOE, retinoOD, retinoOE, tonoOD, tonoOE, bioOD, bioOE, generateReport]);
 
   const clearAll = () => {
-    setExams({ retina: false, micro: false, topo: false, campo: false, stereo: false, lacrimal: false, octmac: false, octno: false, paqui: false });
+    setExams({ retina: false, micro: false, topo: false, campo: false, stereo: false, lacrimal: false, octmac: false, octno: false, paqui: false, retino: false, tono: false, bio: false });
     setRetinaOD({ ...DEFAULT_RETINA }); setRetinaOE({ ...DEFAULT_RETINA });
     setMicroOD({ ...DEFAULT_MICRO }); setMicroOE({ ...DEFAULT_MICRO });
     setTopoOD("normal"); setTopoOE("normal");
@@ -454,6 +540,9 @@ export default function LaudoOftalmologico() {
     setOctmacOD({ ...DEFAULT_OCTMAC }); setOctmacOE({ ...DEFAULT_OCTMAC });
     setOctnoOD({ ...DEFAULT_OCTNO }); setOctnoOE({ ...DEFAULT_OCTNO });
     setPaquiOD({ ...DEFAULT_PAQUI }); setPaquiOE({ ...DEFAULT_PAQUI });
+    setRetinoOD({ ...DEFAULT_RETINO }); setRetinoOE({ ...DEFAULT_RETINO });
+    setTonoOD({ ...DEFAULT_TONO }); setTonoOE({ ...DEFAULT_TONO });
+    setBioOD({ ...DEFAULT_BIO }); setBioOE({ ...DEFAULT_BIO });
     setLaudoText(""); setLaudoHtml(""); setCopied(false);
   };
 
@@ -508,6 +597,9 @@ export default function LaudoOftalmologico() {
           { k: "octmac", label: "OCT Mácula", c: EC.octmac.main },
           { k: "octno", label: "OCT Nervo Óptico", c: EC.octno.main },
           { k: "paqui", label: "Paquimetria", c: EC.paqui.main },
+          { k: "retino", label: "Retinografia", c: EC.retino.main },
+          { k: "tono", label: "Tonometria", c: EC.tono.main },
+          { k: "bio", label: "Biometria", c: EC.bio.main },
         ].map(({ k, label, c }) => (
           <button key={k} onClick={() => toggle(k)} style={{
             ...S.tog, background: exams[k] ? c : "#f1f5f9", color: exams[k] ? "#fff" : "#475569",
@@ -582,6 +674,27 @@ export default function LaudoOftalmologico() {
         { l: "OD → OE", fn: () => setPaquiOE({ ...paquiOD }) },
         { l: "OE → OD", fn: () => setPaquiOD({ ...paquiOE }) },
       ]}><div style={S.eyeRow}><PaquiEye label="OD" data={paquiOD} set={setPaquiOD} /><div style={S.divider} /><PaquiEye label="OE" data={paquiOE} set={setPaquiOE} /></div></EBlock>}
+
+      {/* RETINOGRAFIA */}
+      {exams.retino && <EBlock t="Retinografia" c={EC.retino} acts={[
+        { l: "Exame normal", fn: () => { setRetinoOD({ ...DEFAULT_RETINO }); setRetinoOE({ ...DEFAULT_RETINO }); } },
+        { l: "OD → OE", fn: () => setRetinoOE({ ...retinoOD }) },
+        { l: "OE → OD", fn: () => setRetinoOD({ ...retinoOE }) },
+      ]}><div style={S.eyeRow}><RetinografiaEye label="OD" data={retinoOD} set={setRetinoOD} /><div style={S.divider} /><RetinografiaEye label="OE" data={retinoOE} set={setRetinoOE} /></div></EBlock>}
+
+      {/* TONOMETRIA */}
+      {exams.tono && <EBlock t="Tonometria" c={EC.tono} acts={[
+        { l: "Valores iguais", fn: () => setTonoOE({ ...tonoOD }) },
+        { l: "OD → OE", fn: () => setTonoOE({ ...tonoOD }) },
+        { l: "OE → OD", fn: () => setTonoOD({ ...tonoOE }) },
+      ]}><div style={S.eyeRow}><TonoEye label="OD" data={tonoOD} set={setTonoOD} /><div style={S.divider} /><TonoEye label="OE" data={tonoOE} set={setTonoOE} /></div></EBlock>}
+
+      {/* BIOMETRIA */}
+      {exams.bio && <EBlock t="Biometria Ultrassônica" c={EC.bio} acts={[
+        { l: "Valores iguais", fn: () => setBioOE({ ...bioOD }) },
+        { l: "OD → OE", fn: () => setBioOE({ ...bioOD }) },
+        { l: "OE → OD", fn: () => setBioOD({ ...bioOE }) },
+      ]}><div style={S.eyeRow}><BioEye label="OD" data={bioOD} set={setBioOD} /><div style={S.divider} /><BioEye label="OE" data={bioOE} set={setBioOE} /></div></EBlock>}
 
       {/* OUTPUT */}
       {laudoHtml && (
@@ -805,6 +918,72 @@ function PaquiEye({ label, data, set }) {
           <input type="checkbox" checked={data.interp} onChange={(e) => set((p) => ({ ...p, interp: e.target.checked }))} style={{ accentColor: "#0f172a" }} />
           Interpretação automática
         </label>
+      </div>
+    </div>
+  );
+}
+
+function RetinografiaEye({ label, data, set }) {
+  return (
+    <div style={S.eyeP}>
+      <div style={S.eyeL}>{label}</div>
+      {Object.entries(RETINO_CATEGORIES).map(([key, cat]) => (
+        <div key={key} style={{ marginBottom: 7 }}>
+          <div style={S.cLbl}>{cat.label}</div>
+          <div style={S.oRow}>
+            {cat.options.map((o) => (
+              <button key={o.id} onClick={() => set((p) => ({ ...p, [key]: o.id }))}
+                style={{ ...S.oBtn, ...(data[key] === o.id ? S.oBtnA : {}) }}>{o.label}</button>
+            ))}
+          </div>
+        </div>
+      ))}
+    </div>
+  );
+}
+
+function TonoEye({ label, data, set }) {
+  const QUICK = [10, 12, 14, 16, 18, 20, 22];
+  return (
+    <div style={S.eyeP}>
+      <div style={S.eyeL}>{label}</div>
+      <div style={{ marginBottom: 7 }}>
+        <div style={S.cLbl}>Pressão (mmHg)</div>
+        <div style={S.sRow}>
+          <input type="range" min={5} max={50} value={data.valor} onChange={(e) => set((p) => ({ ...p, valor: +e.target.value }))} />
+          <NI v={data.valor} set={(v) => set((p) => ({ ...p, valor: v }))} u="mmHg" mx={80} />
+        </div>
+        <div style={{ ...S.oRow, marginTop: 5 }}>
+          {QUICK.map((v) => (<button key={v} onClick={() => set((p) => ({ ...p, valor: v }))} style={{ ...S.oBtn, fontSize: 10, padding: "2px 7px", ...(data.valor === v ? S.oBtnA : {}) }}>{v}</button>))}
+        </div>
+      </div>
+    </div>
+  );
+}
+
+function BioEye({ label, data, set }) {
+  const QUICK_AX = [22.0, 22.5, 23.0, 23.5, 24.0, 24.5, 25.0];
+  return (
+    <div style={S.eyeP}>
+      <div style={S.eyeL}>{label}</div>
+      <div style={{ marginBottom: 7 }}>
+        <div style={S.cLbl}>Comprimento axial (mm)</div>
+        <div style={S.sRow}>
+          <input type="range" min={20} max={30} step={0.01} value={data.axial} onChange={(e) => set((p) => ({ ...p, axial: +e.target.value }))} />
+          <div style={S.niWrap}>
+            <input type="number" min={15} max={40} step={0.01} value={data.axial} onChange={(e) => set((p) => ({ ...p, axial: Math.max(15, Math.min(40, parseFloat(e.target.value) || 0)) }))} style={S.ni} />
+            <span style={S.niU}>mm</span>
+          </div>
+        </div>
+        <div style={{ ...S.oRow, marginTop: 5 }}>
+          {QUICK_AX.map((v) => (<button key={v} onClick={() => set((p) => ({ ...p, axial: v }))} style={{ ...S.oBtn, fontSize: 10, padding: "2px 7px", ...(data.axial === v ? S.oBtnA : {}) }}>{v.toFixed(1)}</button>))}
+        </div>
+      </div>
+      <div style={{ marginBottom: 7 }}>
+        <div style={S.cLbl}>Dioptria da LIO</div>
+        <select value={data.dioptria} onChange={(e) => set((p) => ({ ...p, dioptria: e.target.value }))} style={{ ...S.sel, width: "100%" }}>
+          {DIOPTRIAS.map((d) => <option key={d} value={d}>+{d}</option>)}
+        </select>
       </div>
     </div>
   );
